@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Imon International — DORE ME$$ENGER</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--cyan:#00f0ff;--cyan-dim:rgba(0,240,255,.14);--cyan-border:rgba(0,240,255,.35);--glass-bg:rgba(12,12,14,.86);--glass-card:rgba(18,18,22,.9);--text-main:#f0f0f0;--text-muted:#8e8e93;--bg-overlay:rgba(5,5,5,.82)}
+.hidden{display:none!important}
+body.z{background-image:var(--bg-image,url("https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMzhjdGFuNnhtc3UxYjByemttZWIxM2J2bnllOTB4bzY3Yzg0c2tmayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xULW8NLL06O8haiXcY/giphy.webp"));background-size:var(--bg-size,cover);background-repeat:no-repeat;background-position:center;background-attachment:fixed;background-color:#050505;color:var(--text-main);font-family:var(--font,'Inter',sans-serif);min-height:100dvh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body.z::before{content:"";position:fixed;inset:0;background:radial-gradient(circle at center,rgba(5,5,5,.45) 0%,var(--bg-overlay) 100%);pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:6px}
+button{font-family:inherit}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* 1. INTRO */
+#intro-overlay{position:fixed;inset:0;background:#050505;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity 1.1s ease-in-out,visibility 1.1s ease-in-out}
+#intro-overlay.fade-out{opacity:0;visibility:hidden}
+.brand-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4.5vw,4rem);font-weight:700;text-transform:uppercase;text-align:center;padding:0 20px;background:linear-gradient(120deg,#7a7a7a 0%,#e8e8e8 25%,#fff 50%,#b5b5b5 75%,#7a7a7a 100%);background-size:200% auto;color:transparent;-webkit-background-clip:text;background-clip:text;animation:elegantReveal 2.2s cubic-bezier(.22,1,.36,1) forwards,silverShimmer 3s linear infinite}
+.brand-line{width:0;height:1px;margin:15px auto 0;background:linear-gradient(90deg,transparent,#d4d4d4,transparent);animation:lineExpand 1.8s cubic-bezier(.22,1,.36,1) .5s forwards}
+@keyframes elegantReveal{0%{opacity:0;letter-spacing:.05em;transform:translateY(12px) scale(.97);filter:blur(4px)}100%{opacity:1;letter-spacing:.28em;transform:none;filter:blur(0)}}
+@keyframes silverShimmer{to{background-position:200% center}}
+@keyframes lineExpand{to{width:60%}}
+
+/* 2. SHELL & HEADER */
+.chat-container{position:relative;z-index:1;max-width:var(--chat-w,880px);margin:0 auto;display:flex;flex-direction:column;min-height:100dvh}
+.hi{position:sticky;top:0;z-index:30;background:var(--hdr-bg,rgba(10,10,12,.88));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;border-bottom:1px solid rgba(255,255,255,.08);box-shadow:0 6px 24px rgba(0,0,0,.65)}
+.header-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.header-brand{text-align:left;min-width:0}
+.hi h1{font-family:var(--title-font,'Cinzel',serif);font-size:clamp(1.05rem,2.8vw,1.55rem);letter-spacing:var(--title-ls,.14em);color:var(--cyan);text-shadow:0 0 14px var(--cyan-border);white-space:nowrap;cursor:pointer}
+.status-row{display:flex;align-items:center;gap:8px;margin-top:3px;font-size:.76rem;color:var(--text-muted)}
+.online-dot{width:7px;height:7px;border-radius:50%;background:#00e676;box-shadow:0 0 8px #00e676;flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.45}}
+.status.typing{color:var(--cyan);font-style:italic;font-weight:500}
+.header-actions{display:flex;align-items:center;gap:6px;flex:none}
+.profile-pill{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid var(--cyan-border);color:#fff;padding:4px 11px 4px 5px;border-radius:999px;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s;max-width:150px}
+.profile-pill:hover{background:var(--cyan-dim);border-color:var(--cyan)}
+.header-avatar{width:24px;height:24px;border-radius:50%;background:var(--cyan);color:#050505;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex:none;overflow:hidden}
+.header-avatar img,.avatar img,.avatar-preview-circle img,.active-user-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.profile-pill span.uname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hdr-btn{position:relative;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#d4d4d4;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:all .2s}
+.hdr-btn:hover,.hdr-btn.active{color:var(--cyan);border-color:var(--cyan);background:var(--cyan-dim)}
+.hdr-btn:active,.c-btn:active{transform:scale(.92)}
+.hdr-btn.creator-mode{color:#ffd700;border-color:#ffd700;background:rgba(255,215,0,.15);box-shadow:0 0 14px rgba(255,215,0,.45);animation:creatorPulse 2.2s ease-in-out infinite}
+@keyframes creatorPulse{0%,100%{box-shadow:0 0 10px rgba(255,215,0,.35)}50%{box-shadow:0 0 22px rgba(255,215,0,.7)}}
+.online-pill-count{position:absolute;bottom:-3px;right:-3px;background:#00e676;color:#050505;font-size:.62rem;font-weight:800;padding:0 4px;border-radius:999px;line-height:1.3}
+.pinned-bar{display:none;align-items:center;justify-content:space-between;gap:8px;margin-top:8px;padding:6px 10px;border-radius:8px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.28);font-size:.78rem;color:#f3e7a1}
+.pinned-bar.visible{display:flex}
+.pinned-info{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.announce-bar{display:none;margin-top:8px;padding:7px 12px;border-radius:8px;background:var(--cyan-dim);border:1px solid var(--cyan-border);color:var(--cyan);font-size:.8rem;text-align:center;letter-spacing:.02em}
+.announce-bar.visible{display:block}
+.chat-mode-banner{display:none;align-items:center;justify-content:space-between;gap:8px;background:var(--cyan-dim);border:1px solid var(--cyan);border-radius:8px;margin-top:8px;padding:6px 10px;font-size:.8rem;color:var(--cyan)}
+.chat-mode-banner.visible{display:flex}
+.chat-mode-banner button{background:transparent;border:1px solid var(--cyan);color:var(--cyan);padding:3px 10px;border-radius:999px;cursor:pointer;font-size:.74rem;white-space:nowrap}
+
+/* SIDEBAR */
+.side-backdrop{position:fixed;inset:0;z-index:65;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);display:none}
+.side-backdrop.open{display:block}
+.active-sidebar{position:fixed;top:0;right:-340px;width:310px;max-width:88vw;height:100dvh;z-index:70;background:rgba(12,14,18,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--cyan-border);box-shadow:-10px 0 36px rgba(0,0,0,.85);display:flex;flex-direction:column;transition:right .28s cubic-bezier(.22,1,.36,1)}
+.active-sidebar.open{right:0}
+.sidebar-header{display:flex;align-items:center;justify-content:space-between;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-header h3{font-family:'Cinzel',serif;font-size:.95rem;color:var(--cyan);letter-spacing:.08em}
+.sidebar-search{margin:12px 12px 0}
+.active-users-list{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+.active-user-card{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);cursor:pointer;transition:all .18s}
+.active-user-card:hover{border-color:var(--cyan);background:var(--cyan-dim);transform:translateX(-2px)}
+.active-user-avatar{position:relative;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:#050505;flex:none}
+.active-user-avatar.on::after{content:"";position:absolute;bottom:-1px;right:-1px;width:11px;height:11px;border-radius:50%;background:#00e676;border:2px solid #0c0e12}
+.active-user-meta{flex:1;min-width:0}
+.active-user-name{font-size:.88rem;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.active-user-status{font-size:.72rem;color:#8e8e93;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dm-dot{width:9px;height:9px;border-radius:50%;background:#ff5252;box-shadow:0 0 8px #ff5252;flex:none}
+
+/* 3. CHAT & BUBBLES */
+.chat{flex:1;padding:16px 14px calc(125px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:var(--msg-gap,10px);overflow-x:hidden}
+.date-divider{align-self:center;background:rgba(15,15,18,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.08);color:#a0a0a5;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin:6px 0}
+.message-row{position:relative;display:flex;align-items:flex-end;gap:8px;max-width:84%;animation:msgPop .24s cubic-bezier(.22,1,.36,1)}
+.message-row.side-left{align-self:flex-start}
+.message-row.side-right{align-self:flex-end;flex-direction:row-reverse}
+.message-row.system{align-self:center;max-width:92%}
+.message-row.system .message{background:linear-gradient(135deg,var(--cyan-dim),rgba(14,18,24,.96));border:1px solid var(--cyan);border-left:3px solid var(--cyan);border-right:3px solid var(--cyan);border-radius:12px}
+.message-row.system .sender-name{color:var(--cyan);letter-spacing:.1em;font-family:'Cinzel',serif}
+@keyframes msgPop{from{opacity:0;transform:translateY(8px) scale(.98)}to{opacity:1;transform:none}}
+.avatar{width:var(--avatar-size,32px);height:var(--avatar-size,32px);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#050505;flex:none;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+body.no-avatars .avatar{display:none}
+.message{position:relative;background:var(--bubble-bg,linear-gradient(155deg,rgba(22,24,28,.92),rgba(12,13,16,.94)));backdrop-filter:blur(var(--bubble-blur,10px));-webkit-backdrop-filter:blur(var(--bubble-blur,10px));border:1px solid rgba(255,255,255,.09);border-left:3px solid var(--sender-color,var(--cyan));padding:10px 14px 8px;border-radius:var(--bubble-radius,14px);border-bottom-left-radius:4px;font-size:var(--fs,.94rem);line-height:1.45;color:var(--text-color,#ececec);word-wrap:break-word;overflow-wrap:anywhere;box-shadow:0 4px 16px rgba(0,0,0,.45);touch-action:pan-y;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;cursor:grab;min-width:120px;transition:box-shadow .2s}
+.message-row.side-right .message{border-left:1px solid rgba(255,255,255,.09);border-right:3px solid var(--sender-color,var(--cyan));border-bottom-left-radius:var(--bubble-radius,14px);border-bottom-right-radius:4px}
+.message-row.mine .message{background:var(--my-bubble-bg,linear-gradient(155deg,rgba(10,38,44,.92),rgba(11,22,26,.95)))}
+.message.swiping{cursor:grabbing}.message.snap-back{transition:transform .22s cubic-bezier(.22,1,.36,1)}
+.message.highlight{box-shadow:0 0 0 2px var(--cyan),0 0 22px var(--cyan-border)}
+.message.deleted .text{font-style:italic;color:#777}
+.message.letter .text{font-family:Georgia,'Times New Roman',serif;font-size:.93rem;line-height:1.6}
+.text{white-space:pre-wrap}.text code{background:rgba(0,0,0,.45);padding:1px 5px;border-radius:4px;font-family:'Courier New',monospace;font-size:.88em}
+.text a{color:var(--cyan)}.mention-tag{color:var(--cyan);font-weight:600}
+.sender-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:4px;font-size:.78rem}
+.sender-name{font-weight:700;color:var(--sender-color,var(--cyan))}
+.bubble-actions{display:flex;align-items:center;gap:6px}.star-tag{color:#ffd700;font-size:11px}
+.msg-del-btn{background:transparent;border:none;color:#8e8e93;cursor:pointer;font-size:12px;padding:2px;opacity:.6;transition:opacity .15s,color .15s}
+.msg-del-btn:hover{opacity:1;color:#ff5252}
+.quote{background:rgba(0,0,0,.35);border-left:2px solid var(--cyan);padding:4px 8px;margin-bottom:6px;border-radius:4px;font-size:.8rem;cursor:pointer;color:#ccc}
+.quote strong{color:var(--cyan);display:block;font-size:.75rem}
+.media{max-width:100%;max-height:240px;border-radius:8px;margin-top:4px;object-fit:cover;display:block;cursor:pointer}
+.view-once-pill{background:var(--cyan-dim);border:1px solid var(--cyan);color:var(--cyan);padding:6px 12px;border-radius:8px;font-size:.82rem;font-weight:600;cursor:pointer;margin-top:4px;display:inline-flex;align-items:center;gap:6px}
+.view-once-pill.opened{border-color:#555;color:#888;background:rgba(255,255,255,.03)}
+.voice{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.3);padding:6px 10px;border-radius:8px;margin-top:4px;min-width:200px}
+.voice-play{background:var(--cyan);border:none;width:28px;height:28px;border-radius:50%;color:#000;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none}
+.voice-seek{flex:1;min-width:0;accent-color:var(--cyan);height:4px;cursor:pointer}
+.voice-speed{background:rgba(255,255,255,.1);border:none;color:#fff;font-size:.7rem;padding:2px 5px;border-radius:4px;cursor:pointer}
+.voice-time{font-size:.72rem;color:#aaa;min-width:32px;text-align:right}
+.poll-box{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 10px;margin-top:6px}
+.poll-q{font-weight:600;font-size:.88rem;margin-bottom:6px;color:#fff}
+.poll-opt{position:relative;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:6px 10px;margin-bottom:4px;font-size:.82rem;cursor:pointer;overflow:hidden;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.poll-opt.voted{border-color:var(--cyan);background:var(--cyan-dim)}
+.poll-fill{position:absolute;inset:0;background:var(--cyan-dim);z-index:0;transition:width .3s ease}
+.poll-opt span{position:relative;z-index:1}.poll-total{font-size:.7rem;color:#8e8e93;margin-top:4px;text-align:right}
+.reactions{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.react-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:999px;padding:2px 7px;font-size:.75rem;color:#d4d4d4;cursor:pointer}
+.react-chip.mine{border-color:var(--cyan);background:var(--cyan-dim);color:var(--cyan)}
+.meta{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin-top:4px;font-size:.68rem;color:#8e8e93}
+.ticks{color:var(--cyan)}
+.swipe-badge{position:absolute;top:50%;transform:translateY(-50%);font-size:1.1rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.swipe-badge.left{left:-32px;color:var(--cyan)}.swipe-badge.right{right:-32px;color:#ff5252}
+
+/* 4. COMPOSER */
+.composer-bar{position:fixed;bottom:0;left:0;right:0;z-index:40;background:var(--cmp-bg,rgba(10,10,12,.92));backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid rgba(255,255,255,.08);padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));max-width:var(--chat-w,880px);margin:0 auto}
+.reply-preview{display:none;align-items:center;justify-content:space-between;background:var(--cyan-dim);border-left:3px solid var(--cyan);padding:6px 10px;border-radius:6px;margin-bottom:8px;font-size:.8rem}
+.reply-preview.active{display:flex}
+.reply-preview-text{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#d8faff}
+.reply-preview-text strong{color:var(--cyan);margin-right:6px;display:block}
+.reply-cancel{background:transparent;border:none;color:#aaa;cursor:pointer;font-size:1rem;padding:0 4px}
+.composer-main{display:flex;align-items:flex-end;gap:8px}
+.composer-btns{display:flex;align-items:center;gap:4px;flex:none}
+.c-btn{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.05);color:#d4d4d4;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s;flex:none}
+.c-btn:hover{color:var(--cyan);border-color:var(--cyan);background:var(--cyan-dim)}
+.message-input{flex:1;min-width:0;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:9px 14px;color:#fff;font-size:.92rem;outline:none;resize:none;max-height:110px;line-height:1.35;font-family:inherit;transition:border-color .2s,box-shadow .2s}
+.message-input:focus{border-color:var(--cyan);box-shadow:0 0 10px var(--cyan-dim)}
+.send-action-btn{width:38px;height:38px;border-radius:50%;border:none;background:var(--cyan);color:#050505;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:700;box-shadow:0 0 14px var(--cyan-border);transition:transform .15s;flex:none}
+.send-action-btn:active{transform:scale(.92)}
+.drawer{display:none;grid-template-columns:repeat(6,1fr);gap:8px;background:rgba(14,15,19,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:12px;margin-bottom:8px;max-height:190px;overflow-y:auto}
+.drawer.open{display:grid}
+.drawer button{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px;color:#fff;font-size:1.2rem;cursor:pointer;transition:all .15s}
+.drawer button:hover{border-color:var(--cyan);background:var(--cyan-dim)}
+.quick-msgs-drawer{display:none;grid-template-columns:1fr 1fr;gap:6px;background:rgba(14,15,19,.96);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.09);border-radius:14px;padding:10px;margin-bottom:8px;max-height:200px;overflow-y:auto}
+.quick-msgs-drawer.open{display:grid}
+.quick-msg-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 10px;color:#fff;font-size:.82rem;cursor:pointer;text-align:left;transition:all .15s;line-height:1.25}
+.quick-msg-item:hover{border-color:var(--cyan);background:var(--cyan-dim);color:var(--cyan)}
+.recorder-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(22,14,14,.94);border:1px solid rgba(255,82,82,.4);border-radius:20px;padding:6px 14px}
+.rec-info{display:flex;align-items:center;gap:8px;font-size:.85rem;color:#ff5252;font-weight:600}
+.rec-dot{width:10px;height:10px;border-radius:50%;background:#ff5252;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.3}}
+body.no-media #plusBtn{display:none}body.no-voice #micBtn{display:none!important}
+body.no-polls #openPollBtn{display:none}body.no-dms .dm-chip{display:none}
+
+/* 5. MODALS */
+.modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);display:flex;justify-content:center;align-items:center;padding:16px;opacity:0;visibility:hidden;transition:all .25s ease}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-card{background:rgba(15,17,22,.96);border:1px solid var(--cyan-border);border-radius:16px;padding:24px;width:100%;max-width:440px;max-height:90dvh;overflow-y:auto;box-shadow:0 16px 48px rgba(0,0,0,.85);transform:translateY(10px) scale(.98);transition:transform .25s cubic-bezier(.22,1,.36,1)}
+.modal-overlay.open .modal-card{transform:none}
+.modal-card h2{font-family:'Cinzel',serif;font-size:1.25rem;color:var(--cyan);margin-bottom:16px;letter-spacing:.06em}
+.modal-field{margin-bottom:14px}
+.modal-field label{display:block;font-size:.8rem;color:var(--text-muted);margin-bottom:6px;font-weight:600}
+.modal-input{width:100%;background:rgba(0,0,0,.6);border:1px solid #333;border-radius:10px;padding:10px 14px;color:#fff;font-size:.92rem;outline:none;font-family:inherit;transition:border-color .2s}
+.modal-input:focus{border-color:var(--cyan)}
+textarea.modal-input{resize:vertical;min-height:90px}select.modal-input option{background:#111}
+.filter-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#ddd;padding:7px 14px;border-radius:999px;font-size:.8rem;cursor:pointer;transition:all .18s}
+.filter-chip:hover{border-color:var(--cyan);color:var(--cyan)}
+.filter-chip.active{background:var(--cyan);color:#050505;border-color:var(--cyan);font-weight:700}
+.filter-chip:disabled{opacity:.5;pointer-events:none}
+.avatar-picker-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.avatar-preview-circle{width:54px;height:54px;border-radius:50%;background:var(--cyan);color:#050505;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.1rem;overflow:hidden;border:2px solid var(--cyan-border);flex:none}
+#mediaPreviewBox img,#mediaPreviewBox video{max-width:100%;max-height:220px;border-radius:10px}
+.context-menu{position:fixed;z-index:90;background:rgba(14,16,22,.96);backdrop-filter:blur(16px);border:1px solid var(--cyan-border);border-radius:12px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,.8);display:none;flex-direction:column;min-width:170px}
+.context-menu.open{display:flex}
+.menu-reactions{display:flex;gap:4px;padding:6px;border-bottom:1px solid rgba(255,255,255,.08);justify-content:space-around}
+.menu-reactions button{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:4px;border-radius:6px}
+.menu-reactions button:hover{background:rgba(255,255,255,.08)}
+.menu-action{background:none;border:none;color:#e0e0e0;font-size:.86rem;padding:8px 12px;text-align:left;cursor:pointer;border-radius:6px;display:flex;align-items:center;gap:8px}
+.menu-action:hover{background:var(--cyan-dim);color:var(--cyan)}
+.lightbox{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;padding:20px}
+.lightbox.open{display:flex}
+.lightbox img,.lightbox video{max-width:100%;max-height:90vh;border-radius:8px;object-fit:contain}
+.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(20px);background:rgba(14,16,22,.96);border:1px solid var(--cyan);color:var(--cyan);padding:8px 18px;border-radius:999px;font-size:.84rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.7);opacity:0;visibility:hidden;transition:all .25s;z-index:130;max-width:90vw;text-align:center}
+.toast.show{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.scroll-fab{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom,0px));right:20px;z-index:35;width:38px;height:38px;border-radius:50%;background:rgba(15,17,22,.9);border:1px solid var(--cyan);color:var(--cyan);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:all .2s}
+.scroll-fab.visible{opacity:1;visibility:visible}
+.unread-badge{position:absolute;top:-4px;right:-4px;background:#ff5252;color:#fff;font-size:.62rem;font-weight:800;padding:1px 5px;border-radius:999px}
+
+/* ADMIN PANEL */
+.admin-panel{background:rgba(20,10,25,.98);border:1px solid #ff00ff;max-width:520px}
+.admin-panel h2{color:#ff7eb6}
+.adm-group{font-family:'Cinzel',serif;color:#ff7eb6;letter-spacing:.1em;font-size:.82rem;text-transform:uppercase;margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,126,182,.25)}
+.adm-row{display:flex;align-items:center;gap:10px}.adm-row output{font-size:.78rem;color:#ccc;min-width:44px;text-align:right}
+.adm-row input[type=range]{flex:1;accent-color:#ff7eb6}
+.adm-check{display:flex;align-items:center;gap:10px;font-size:.86rem;color:#ddd}.adm-check input{width:18px;height:18px;accent-color:#ff7eb6}
+input[type=color].modal-input{height:40px;padding:3px;cursor:pointer}
+.adm-actions{position:sticky;bottom:-24px;background:rgba(20,10,25,.98);padding:14px 0 4px;margin-top:18px;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;border-top:1px solid rgba(255,126,182,.25)}
+.letter-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-family:Georgia,serif;font-size:.84rem;line-height:1.5;white-space:pre-wrap;color:#ddd}
+.letter-card .lc-head{font-family:'Inter',sans-serif;font-size:.7rem;color:#ff7eb6;margin-bottom:6px;display:flex;justify-content:space-between;gap:8px}
+.help-group{font-family:'Cinzel',serif;color:var(--cyan);letter-spacing:.1em;font-size:.78rem;text-transform:uppercase;margin:16px 0 8px}
+.help-item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;padding:9px 11px;margin-bottom:6px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);cursor:pointer;transition:all .15s}
+.help-item:hover{border-color:var(--cyan);background:var(--cyan-dim)}
+.help-item code{color:var(--cyan);font-family:'Courier New',monospace;font-size:.84rem;font-weight:700}
+.help-item .hd{font-size:.8rem;color:#c9c9ce;margin-top:2px;line-height:1.35}
+.help-item .hex{font-size:.72rem;color:#8e8e93;margin-top:2px}
+.help-run{flex:none;background:var(--cyan);color:#050505;border:none;border-radius:999px;padding:3px 10px;font-size:.72rem;font-weight:700;cursor:pointer}
+.letter-card button{background:none;border:none;color:#ff5252;cursor:pointer;font-size:.72rem}
+
+/* GOD DESCENT EFFECT */
+#god-descent{position:fixed;inset:0;z-index:20000;display:none;align-items:center;justify-content:center;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at center,rgba(255,215,0,.25) 0%,rgba(255,255,255,.08) 30%,rgba(0,0,0,.92) 70%)}
+#god-descent.active{display:flex;animation:godFadeIn .35s ease-out forwards}
+#god-descent.fade{animation:godFadeOut .9s ease-in forwards}
+.god-aura{position:absolute;inset:-20%;background:conic-gradient(from 0deg,transparent,rgba(255,215,0,.4),transparent,rgba(255,255,255,.35),transparent,rgba(0,240,255,.3),transparent);animation:godSpin 3s linear infinite;filter:blur(40px);opacity:.7}
+.god-rays{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,255,255,.12) 0deg 8deg,transparent 8deg 36deg);animation:godSpin 8s linear infinite reverse;opacity:.5}
+.god-text{position:relative;z-index:2;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(1.6rem,7vw,3.8rem);text-align:center;letter-spacing:.18em;text-transform:uppercase;color:#fff;text-shadow:0 0 10px #fff,0 0 30px #ffd700,0 0 60px #ffaa00,0 0 100px #ff6600,0 0 140px #ff0000;animation:godGlitch 0.18s steps(2) infinite,godPulse 1.2s ease-in-out infinite;padding:0 16px;max-width:96vw}
+.god-text::before,.god-text::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden}
+.god-text::before{left:2px;text-shadow:-2px 0 #00f0ff;clip-path:inset(0 0 55% 0);animation:godGlitchTop .25s linear infinite}
+.god-text::after{left:-2px;text-shadow:2px 0 #ff00aa;clip-path:inset(45% 0 0 0);animation:godGlitchBot .3s linear infinite}
+@keyframes godSpin{to{transform:rotate(360deg)}}
+@keyframes godPulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.04);filter:brightness(1.25)}}
+@keyframes godGlitch{0%{transform:translate(0)}20%{transform:translate(-3px,2px)}40%{transform:translate(3px,-1px)}60%{transform:translate(-2px,-2px)}80%{transform:translate(2px,1px)}100%{transform:translate(0)}}
+@keyframes godGlitchTop{0%{clip-path:inset(0 0 60% 0);transform:translate(-3px,0)}50%{clip-path:inset(20% 0 30% 0);transform:translate(3px,0)}100%{clip-path:inset(0 0 55% 0);transform:translate(-2px,0)}}
+@keyframes godGlitchBot{0%{clip-path:inset(50% 0 0 0);transform:translate(3px,0)}50%{clip-path:inset(30% 0 10% 0);transform:translate(-4px,0)}100%{clip-path:inset(45% 0 0 0);transform:translate(2px,0)}}
+@keyframes godFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes godFadeOut{from{opacity:1}to{opacity:0}}
+.drawer{grid-template-columns:repeat(3,1fr)!important}
+</style>
+</head>
+<body class="z">
+
+<div id="intro-overlay"><div><div class="brand-title" id="introText">Imon International</div><div class="brand-line"></div></div></div>
+
+<div class="chat-container">
+  <header class="hi">
+    <div class="header-top">
+      <div class="header-brand">
+        <h1 id="appHeaderTitle">DORE ME$$ENGER</h1>
+        <div class="status-row"><span class="online-dot"></span><span id="status" class="status">Connecting securely...</span></div>
+      </div>
+      <div class="header-actions">
+        <div class="profile-pill" id="profileBtn" title="Edit Profile"><div class="header-avatar" id="headerAvatar">G</div><span class="uname" id="headerUsername">Guest</span></div>
+        <button class="hdr-btn" id="activeUsersBtn" title="Users & Direct Messages" type="button">&#128101;<span id="onlinePillCount" class="online-pill-count">1</span></button>
+        <button class="hdr-btn active" id="soundToggleBtn" title="Toggle Sound" type="button">&#128276;</button>
+        <button class="hdr-btn" id="helpBtn" title="Help & Commands" type="button">?</button>
+        <button class="hdr-btn" id="adminCustomBtn" style="display:none;" title="Site Customization" type="button">&#9881;</button>
+      </div>
+    </div>
+    <div id="announceBar" class="announce-bar"></div>
+    <div id="pinnedBar" class="pinned-bar"><div class="pinned-info" id="pinnedInfo"></div><button id="unpinBtn" type="button" style="background:none;border:none;color:#aaa;cursor:pointer;font-size:1.1rem;">&times;</button></div>
+    <div id="chatModeBanner" class="chat-mode-banner"><span id="chatModeText">World Chat</span><button id="exitChatModeBtn" type="button">&larr; World Chat</button></div>
+  </header>
+
+  <main class="chat" id="messages"></main>
+
+  <button class="scroll-fab" id="scrollFab" title="Scroll to bottom" type="button">&#8595;<span id="unreadBadge" class="unread-badge hidden">0</span></button>
+
+  <div class="composer-bar">
+    <div id="replyPreview" class="reply-preview"><div id="replyPreviewText" class="reply-preview-text"></div><button id="replyCancel" class="reply-cancel" type="button">&times;</button></div>
+    <div id="attachDrawer" class="drawer">
+      <button id="pickPhotoBtn" title="Photo / Video from Gallery" type="button">&#128247;</button>
+      <button id="openCameraBtn" title="Take Photo" type="button">&#128248;</button>
+      <button id="openVideoCamBtn" title="Record Video" type="button">&#127909;</button>
+      <button id="openPollBtn" title="Create Poll" type="button">&#128202;</button>
+      <button id="openLocationBtn" title="Share Location" type="button">&#128205;</button>
+      <button id="openStickerBtn" title="Quick Stickers" type="button">&#127912;</button>
+    </div>
+    <div id="quickMsgsDrawer" class="quick-msgs-drawer"></div>
+    <div id="emojiDrawer" class="drawer"></div>
+    <div id="recorder" class="recorder-bar hidden">
+      <div class="rec-info"><div class="rec-dot"></div><span>Recording… <strong id="recTime">0:00</strong></span></div>
+      <div style="display:flex;gap:6px;">
+        <button id="recCancel" class="c-btn" title="Cancel" type="button">&#10006;</button>
+        <button id="recSend" class="c-btn" title="Send Voice" type="button" style="color:var(--cyan);border-color:var(--cyan);">&#10004;</button>
+      </div>
+    </div>
+    <div id="composer" class="composer-main">
+      <div class="composer-btns">
+        <button class="c-btn" id="plusBtn" title="Attachments" type="button">+</button>
+        <button class="c-btn" id="quickMsgBtn" title="Quick Messages" type="button">&#128172;</button>
+        <button class="c-btn" id="emojiBtn" title="Emojis" type="button">&#128522;</button>
+      </div>
+      <textarea id="messageInput" class="message-input" placeholder="Type a message..." rows="1"></textarea>
+      <button class="c-btn" id="micBtn" title="Record Voice Note" type="button">&#127897;&#65039;</button>
+      <button class="send-action-btn hidden" id="sendBtn" title="Send" type="button">&#10148;</button>
+    </div>
+  </div>
+</div>
+
+<div class="side-backdrop" id="sideBackdrop"></div>
+<aside class="active-sidebar" id="activeSidebar">
+  <div class="sidebar-header"><h3>Users (<span id="sidebarOnlineCount">1</span>)</h3><button id="closeSidebarBtn" type="button" style="background:none;border:none;color:#aaa;font-size:1.3rem;cursor:pointer;">&times;</button></div>
+  <input type="text" id="userSearch" class="modal-input sidebar-search" placeholder="Search users...">
+  <div class="active-users-list" id="activeUsersList"></div>
+</aside>
+
+<div class="modal-overlay" id="profileModal">
+  <div class="modal-card">
+    <h2 id="profileModalTitle">Create Your Profile</h2>
+    <div class="avatar-picker-row">
+      <div class="avatar-preview-circle" id="avatarPreviewCircle">G</div>
+      <div><button class="filter-chip" id="pickAvatarBtn" type="button" style="margin-bottom:6px;">Upload Photo</button> <button class="filter-chip" id="removeAvatarBtn" type="button" style="color:#ff5252;">Remove</button>
+      <input type="file" id="avatarFileInput" accept="image/*" style="display:none;"></div>
+    </div>
+    <div class="modal-field"><label>Agent Codename (Username)</label><input type="text" id="usernameInput" class="modal-input" placeholder="Enter codename..." maxlength="24"></div>
+    <div class="modal-field"><label>Status Bio</label><input type="text" id="userBioInput" class="modal-input" placeholder="Online & Ready" maxlength="60"></div>
+    <div style="font-size:.75rem;color:#777;margin-bottom:16px;">Device ID: <span id="deviceIdDisplay"></span></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button id="closeProfileModal" class="filter-chip" type="button" style="display:none;">Cancel</button>
+      <button id="saveUsernameBtn" class="filter-chip active" type="button">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="mediaModal">
+  <div class="modal-card">
+    <h2>Send Media</h2>
+    <div id="mediaPreviewBox" style="margin-bottom:12px;text-align:center;"></div>
+    <div class="modal-field"><input type="text" id="mediaCaptionInput" class="modal-input" placeholder="Add a caption..."></div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;font-size:.86rem;">
+      <input type="checkbox" id="viewOnceCheck" style="accent-color:var(--cyan);width:16px;height:16px;">
+      <label for="viewOnceCheck" style="cursor:pointer;color:#ccc;">Send as View Once (locks after opening)</label>
+    </div>
+    <div id="uploadProgressText" style="font-size:.78rem;color:var(--cyan);margin-bottom:10px;min-height:1em;"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;">
+      <button id="cancelMediaBtn" class="filter-chip" type="button">Cancel</button>
+      <button id="confirmSendMediaBtn" class="filter-chip active" type="button">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="pollModal">
+  <div class="modal-card">
+    <h2>Create Live Poll</h2>
+    <div class="modal-field"><label>Poll Question</label><input type="text" id="pollQuestion" class="modal-input" placeholder="Ask something..."></div>
+    <div class="modal-field"><label>Option 1</label><input type="text" id="pollOpt1" class="modal-input"></div>
+    <div class="modal-field"><label>Option 2</label><input type="text" id="pollOpt2" class="modal-input"></div>
+    <div class="modal-field"><label>Option 3 (optional)</label><input type="text" id="pollOpt3" class="modal-input"></div>
+    <div class="modal-field"><label>Option 4 (optional)</label><input type="text" id="pollOpt4" class="modal-input"></div>
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px;">
+      <button id="cancelPollBtn" class="filter-chip" type="button">Cancel</button>
+      <button id="sendPollBtn" class="filter-chip active" type="button">Launch Poll</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="adminModal">
+  <div class="modal-card admin-panel">
+    <h2>Site Customization</h2>
+    <div style="font-size:.78rem;color:#aaa;">Changes preview instantly for you. Press <strong>Apply to everyone</strong> to broadcast them.</div>
+    <div id="adminFields"></div>
+    <div class="adm-group">Letters to the Admin</div>
+    <div id="adminInbox"><div style="font-size:.8rem;color:#888;">No letters yet.</div></div>
+    <div class="adm-actions">
+      <button id="resignAdminBtn" class="filter-chip" type="button" style="color:#ff5252;">Resign admin</button>
+      <button id="resetSettingsBtn" class="filter-chip" type="button">Reset to default</button>
+      <button id="closeAdminModal" class="filter-chip" type="button">Close</button>
+      <button id="saveCustomSettingsBtn" class="filter-chip active" type="button">Apply to everyone</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="helpModal">
+  <div class="modal-card" style="max-width:520px;">
+    <h2>Help &amp; Commands</h2>
+    <input type="text" id="helpSearch" class="modal-input" placeholder="Search commands..." style="margin-bottom:12px;">
+    <div style="font-size:.76rem;color:#8e8e93;margin-bottom:6px;">Tap a command to put it in the message box. Commands marked ▶ can run right away.</div>
+    <div id="helpList"></div>
+    <div style="display:flex;justify-content:flex-end;margin-top:14px;"><button id="closeHelpBtn" class="filter-chip active" type="button">Got it</button></div>
+  </div>
+</div>
+<input type="file" id="fileInput" accept="image/*,video/*" style="display:none;">
+<input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none;">
+<input type="file" id="videoCameraInput" accept="video/*" capture="environment" style="display:none;">
+
+<div class="context-menu" id="msgMenu">
+  <div class="menu-reactions" id="menuReactions"></div>
+  <button class="menu-action" data-action="reply" type="button">&#8617; Reply</button>
+  <button class="menu-action" data-action="edit" id="menuEditBtn" type="button">&#9998; Edit Message</button>
+  <button class="menu-action" data-action="pin" type="button">&#128204; Pin Message</button>
+  <button class="menu-action" data-action="star" type="button">&#9733; Star / Unstar</button>
+  <button class="menu-action" data-action="copy" type="button">&#128203; Copy Text</button>
+  <button class="menu-action" data-action="delete" id="menuDeleteBtn" type="button" style="color:#ff5252;">&#128465; Delete</button>
+</div>
+<div class="lightbox" id="lightbox"></div>
+<div class="toast" id="toast"></div>
+<div id="god-descent"><div class="god-aura"></div><div class="god-rays"></div><div class="god-text" data-text="God Has Descended">God Has Descended</div></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, push, set, update, remove, onChildAdded, onChildChanged, onChildRemoved, onValue, onDisconnect, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getStorage, ref as sRef, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8Ub1gJ7tz_q7rIdBHD1SRT56bWr02_YY",
+  authDomain: "shutter-b7db3.firebaseapp.com",
+  databaseURL: "https://shutter-b7db3-default-rtdb.firebaseio.com",
+  projectId: "shutter-b7db3",
+  storageBucket: "shutter-b7db3.firebasestorage.app",
+  messagingSenderId: "620275371970",
+  appId: "1:620275371970:web:31eeb4998068b6d18d905b"
+};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const storage = getStorage(app);
+try { storage.maxUploadRetryTime = 8000; storage.maxOperationRetryTime = 8000; } catch {}
+
+const $ = (id) => document.getElementById(id);
+const presenceRef = ref(db, 'presence');
+const usersRegistryRef = ref(db, 'usersRegistry');
+const typingRef = ref(db, 'typing');
+const pinnedRef = ref(db, 'pinnedMessage');
+const settingsRef = ref(db, 'siteSettings');
+
+// Secret creative-mode phrase is stored only as a hash (not readable in source)
+// Phrase: /gamemodecreativeBrunoMarsapply
+const ADMIN_HASH = 'a3421575-277eb385';
+const miniHash = (str) => { let a = 2166136261, b = 5381; for (const c of str) { a ^= c.charCodeAt(0); a = Math.imul(a, 16777619) >>> 0; b = ((b << 5) + b + c.charCodeAt(0)) >>> 0; } return a.toString(16) + '-' + b.toString(16); };
+const isSecretCommand = (raw) => miniHash(raw.toLowerCase().replace(/\s+/g, '')) === ADMIN_HASH;
+
+// =========================================
+// 1. PROFILE
+// =========================================
+let deviceId = localStorage.getItem('dore_device_id');
+if (!deviceId) {
+  deviceId = 'dev_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+  localStorage.setItem('dore_device_id', deviceId);
+}
+let username = localStorage.getItem('dore_permanent_username') || '';
+let userBio = localStorage.getItem('dore_user_bio') || 'Online & Ready';
+let userAvatar = localStorage.getItem('dore_user_avatar') || '';
+let tempAvatarData = userAvatar;
+let isAdmin = localStorage.getItem('dore_is_admin') === 'true';
+let userJoinedAt = parseInt(localStorage.getItem('dore_joined_at'), 10);
+if (!userJoinedAt) { userJoinedAt = Date.now(); localStorage.setItem('dore_joined_at', userJoinedAt); }
+
+const headerUsername = $('headerUsername'), headerAvatar = $('headerAvatar'), profileModal = $('profileModal');
+const usernameInput = $('usernameInput'), userBioInput = $('userBioInput'), avatarPreviewCircle = $('avatarPreviewCircle');
+const adminCustomBtn = $('adminCustomBtn');
+$('deviceIdDisplay').textContent = deviceId;
+if (isAdmin) { adminCustomBtn.style.display = 'flex'; adminCustomBtn.classList.add('creator-mode'); }
+
+function renderAvatarPreview(src, nameStr) {
+  if (src) avatarPreviewCircle.innerHTML = `<img src="${src}" alt="Avatar">`;
+  else avatarPreviewCircle.textContent = (nameStr || '?').slice(0, 2).toUpperCase();
+}
+function updateHeaderProfileUI() {
+  headerUsername.textContent = username || 'Guest';
+  if (userAvatar) headerAvatar.innerHTML = `<img src="${userAvatar}" alt="Avatar">`;
+  else headerAvatar.textContent = (username || 'G').slice(0, 2).toUpperCase();
+}
+function registerSelf() {
+  if (!username) return;
+  set(ref(db, `usersRegistry/${deviceId}`), { username, bio: userBio, avatar: userAvatar, lastActive: Date.now() }).catch(() => {});
+}
+function saveProfile(name, bio, avatar) {
+  username = name.trim().slice(0, 24);
+  userBio = bio.trim() || 'Online & Ready';
+  userAvatar = avatar || '';
+  localStorage.setItem('dore_permanent_username', username);
+  localStorage.setItem('dore_user_bio', userBio);
+  try { localStorage.setItem('dore_user_avatar', userAvatar); } catch {}
+  updateHeaderProfileUI(); updatePresence(); registerSelf();
+}
+function openProfileSetup(isMandatory = false) {
+  tempAvatarData = userAvatar;
+  usernameInput.value = username;
+  userBioInput.value = userBio === 'Online & Ready' && !username ? '' : userBio;
+  renderAvatarPreview(tempAvatarData, username);
+  $('profileModalTitle').textContent = isMandatory ? 'Create Your Profile' : 'Edit Profile';
+  $('closeProfileModal').style.display = isMandatory ? 'none' : 'inline-block';
+  profileModal.classList.add('open');
+  setTimeout(() => usernameInput.focus(), 80);
+}
+function endIntro(after) {
+  setTimeout(() => {
+    const intro = $('intro-overlay');
+    if (intro) { intro.classList.add('fade-out'); setTimeout(() => intro.remove(), 1100); }
+    if (after) after();
+  }, 2400);
+}
+if (username) { updateHeaderProfileUI(); registerSelf(); endIntro(); }
+else endIntro(() => openProfileSetup(true));
+
+usernameInput.addEventListener('input', () => { if (!tempAvatarData) renderAvatarPreview('', usernameInput.value); });
+$('pickAvatarBtn').addEventListener('click', () => $('avatarFileInput').click());
+$('removeAvatarBtn').addEventListener('click', () => { tempAvatarData = ''; renderAvatarPreview('', usernameInput.value); });
+$('avatarFileInput').addEventListener('change', (e) => {
+  const file = e.target.files[0]; if (!file) return;
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas'), size = 128;
+    canvas.width = size; canvas.height = size;
+    const m = Math.min(img.width, img.height);
+    canvas.getContext('2d').drawImage(img, (img.width - m) / 2, (img.height - m) / 2, m, m, 0, 0, size, size);
+    tempAvatarData = canvas.toDataURL('image/jpeg', 0.8);
+    renderAvatarPreview(tempAvatarData, usernameInput.value);
+  };
+  img.src = URL.createObjectURL(file);
+  e.target.value = '';
+});
+$('profileBtn').addEventListener('click', () => openProfileSetup(false));
+$('closeProfileModal').addEventListener('click', () => { if (username) profileModal.classList.remove('open'); });
+$('saveUsernameBtn').addEventListener('click', () => {
+  const n = usernameInput.value.trim();
+  if (!n) { showToast('Please enter a username to continue'); usernameInput.focus(); return; }
+  saveProfile(n, userBioInput.value, tempAvatarData);
+  profileModal.classList.remove('open');
+  showToast('Profile saved: ' + username);
+});
+usernameInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') $('saveUsernameBtn').click(); });
+function ensureProfileReady() { if (!username) { openProfileSetup(true); return false; } return true; }
+
+// =========================================
+// 2. HELPERS & STATE
+// =========================================
+const messagesContainer = $('messages'), messageInput = $('messageInput'), sendBtn = $('sendBtn'), micBtn = $('micBtn'), toastEl = $('toast');
+const msgStore = new Map();
+const starredIds = new Set(JSON.parse(localStorage.getItem('dore_starred') || '[]'));
+const hiddenForMeIds = new Set(JSON.parse(localStorage.getItem('dore_hidden_msgs') || '[]'));
+let replyingTo = null, editingMsgId = null, lastDateLabel = '', unreadCount = 0, soundEnabled = true, altCounter = 0;
+let chatPath = 'messages', activeDm = null;
+let onlineUsersMap = {}, registeredUsersMap = {}, activeTypers = [];
+let cfg = {};
+
+function showToast(text) {
+  toastEl.textContent = text; toastEl.classList.add('show');
+  clearTimeout(toastEl._t); toastEl._t = setTimeout(() => toastEl.classList.remove('show'), 2600);
+}
+function playPing(freq = 680) {
+  if (!soundEnabled) return;
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(freq, ctx.currentTime);
+    g.gain.setValueAtTime(0.03, ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.16);
+    o.connect(g); g.connect(ctx.destination); o.start(); o.stop(ctx.currentTime + 0.16);
+    setTimeout(() => ctx.close(), 400);
+  } catch {}
+}
+const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, (m) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m]));
+function formatRichText(raw) {
+  let s = escapeHtml(raw);
+  s = s.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/`([^`]+)`/g, '<code>$1</code>').replace(/\*([^*\n]+)\*/g, '<strong>$1</strong>').replace(/(^|\s)_([^_\n]+)_(?=\s|$)/g, '$1<em>$2</em>').replace(/~([^~\n]+)~/g, '<del>$1</del>').replace(/(@[A-Za-z0-9_-]+)/g, '<span class="mention-tag">$1</span>');
+  return s;
+}
+function userColor(name) {
+  const p = ['#00f0ff', '#ff7eb6', '#7afcff', '#feff9c', '#a78bfa', '#34d399', '#fb923c'];
+  let h = 0; for (let i = 0; i < name.length; i++) h = name.charCodeAt(i) + ((h << 5) - h);
+  return p[Math.abs(h) % p.length];
+}
+const formatTime = (ts) => ts ? new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+function formatDateDay(ts) {
+  const d = new Date(ts || Date.now()), t = new Date();
+  if (d.toDateString() === t.toDateString()) return 'Today';
+  if (d.toDateString() === new Date(Date.now() - 86400000).toDateString()) return 'Yesterday';
+  return d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+}
+const toBottom = (smooth = true) => window.scrollTo({ top: document.body.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
+function syncComposerButtons() {
+  const has = messageInput.value.trim().length > 0;
+  sendBtn.classList.toggle('hidden', !has);
+  micBtn.classList.toggle('hidden', has);
+  messageInput.style.height = 'auto';
+  messageInput.style.height = Math.min(messageInput.scrollHeight, 110) + 'px';
+}
+function avatarInner(did, name) {
+  const src = registeredUsersMap[did]?.avatar || (did === deviceId ? userAvatar : '');
+  return src ? `<img src="${src}" alt="">` : escapeHtml((name || 'G').slice(0, 2).toUpperCase());
+}
+function refreshAvatars() {
+  document.querySelectorAll('.avatar[data-did]').forEach(el => {
+    const did = el.dataset.did; if (did === 'SYSTEM_BOT') return;
+    const src = registeredUsersMap[did]?.avatar;
+    if (src && !el.querySelector('img')) el.innerHTML = `<img src="${src}" alt="">`;
+  });
+}
+
+$('soundToggleBtn').addEventListener('click', (e) => {
+  soundEnabled = !soundEnabled;
+  e.currentTarget.classList.toggle('active', soundEnabled);
+  e.currentTarget.innerHTML = soundEnabled ? '&#128276;' : '&#128277;';
+  showToast(soundEnabled ? 'Notification chime: ON' : 'Notification chime: MUTED');
+});
+
+// =========================================
+// 3. PRESENCE, USERS LIST & DIRECT MESSAGES
+// =========================================
+const myPresenceRef = ref(db, `presence/${deviceId}`), myTypingRef = ref(db, `typing/${deviceId}`);
+const statusEl = $('status');
+let statusSuffix = 'Encrypted Sync';
+
+function updatePresence() {
+  if (!username) return;
+  set(myPresenceRef, { username, bio: userBio, online: true, lastSeen: Date.now() }).catch(() => {});
+  onDisconnect(myPresenceRef).remove(); onDisconnect(myTypingRef).remove();
+}
+if (username) updatePresence();
+
+function renderStatus() {
+  const count = Math.max(1, Object.keys(onlineUsersMap).length);
+  if (activeTypers.length) {
+    statusEl.className = 'status typing';
+    statusEl.textContent = activeTypers.length === 1 ? `${activeTypers[0]} is typing...` : `${activeTypers.join(', ')} are typing...`;
+  } else { statusEl.className = 'status'; statusEl.textContent = `${count} online • ${statusSuffix}`; }
+}
+
+const dmUnread = new Set();
+function renderUsersSidebar() {
+  const q = $('userSearch').value.trim().toLowerCase();
+  let entries = Object.entries(registeredUsersMap);
+  if (!entries.length && username) entries = [[deviceId, { username, bio: userBio, avatar: userAvatar }]];
+  $('onlinePillCount').textContent = Math.max(1, Object.keys(onlineUsersMap).length);
+  $('sidebarOnlineCount').textContent = entries.length;
+  entries.sort(([ai, a], [bi, b]) => (ai === deviceId ? -1 : bi === deviceId ? 1 : 0) || ((onlineUsersMap[bi] ? 1 : 0) - (onlineUsersMap[ai] ? 1 : 0)) || (a.username || '').localeCompare(b.username || ''));
+  const list = $('activeUsersList'); list.innerHTML = '';
+  entries.filter(([, u]) => !q || (u.username || '').toLowerCase().includes(q)).forEach(([id, u]) => {
+    const name = u.username || 'Agent', isSelf = id === deviceId, isOnline = !!onlineUsersMap[id];
+    const card = document.createElement('div'); card.className = 'active-user-card';
+    card.innerHTML = `
+      <div class="active-user-avatar ${isOnline ? 'on' : ''}" style="background:${userColor(name)}">${u.avatar ? `<img src="${u.avatar}" alt="">` : escapeHtml(name.slice(0, 2).toUpperCase())}</div>
+      <div class="active-user-meta"><div class="active-user-name">${escapeHtml(name)} ${isSelf ? '<span style="color:var(--cyan);font-size:.72rem;">(You)</span>' : ''}</div>
+      <div class="active-user-status">${isOnline ? '🟢 Online' : '⚪ Offline'} • ${escapeHtml(u.bio || 'Agent')}</div></div>
+      ${dmUnread.has(id) ? '<span class="dm-dot"></span>' : ''}
+      ${!isSelf ? '<button class="filter-chip dm-chip" type="button" style="font-size:.7rem;padding:4px 10px;">Message</button>' : ''}`;
+    card.addEventListener('click', () => {
+      closeActiveSidebar();
+      if (!isSelf) startDirectMessage(id, name);
+      else { const tag = `@${name} `; if (!messageInput.value.includes(tag)) messageInput.value += (messageInput.value ? ' ' : '') + tag; syncComposerButtons(); messageInput.focus(); }
+    });
+    list.appendChild(card);
+  });
+}
+$('userSearch').addEventListener('input', renderUsersSidebar);
+onValue(presenceRef, (s) => { onlineUsersMap = s.val() || {}; renderStatus(); renderUsersSidebar(); });
+onValue(usersRegistryRef, (s) => { registeredUsersMap = s.val() || {}; renderUsersSidebar(); refreshAvatars(); });
+onValue(typingRef, (s) => {
+  const v = s.val() || {};
+  activeTypers = Object.entries(v).filter(([id, d]) => id !== deviceId && d && d.username && Date.now() - (d.ts || 0) < 8000).map(([, d]) => d.username);
+  renderStatus();
+});
+let typingTimeout = null;
+function notifyTyping() {
+  if (!username) return;
+  set(myTypingRef, { username, ts: Date.now() }).catch(() => {});
+  clearTimeout(typingTimeout); typingTimeout = setTimeout(() => remove(myTypingRef), 2200);
+}
+const activeSidebar = $('activeSidebar'), sideBackdrop = $('sideBackdrop');
+function openActiveSidebar() { renderUsersSidebar(); activeSidebar.classList.add('open'); sideBackdrop.classList.add('open'); }
+function closeActiveSidebar() { activeSidebar.classList.remove('open'); sideBackdrop.classList.remove('open'); }
+$('activeUsersBtn').addEventListener('click', openActiveSidebar);
+$('closeSidebarBtn').addEventListener('click', closeActiveSidebar);
+sideBackdrop.addEventListener('click', closeActiveSidebar);
+
+const pairKey = (a, b) => [a, b].sort().join('__');
+function startDirectMessage(id, name) {
+  if (cfg.allowDMs === false) return showToast('Direct messages are turned off');
+  if (!ensureProfileReady()) return;
+  activeDm = { id, name };
+  dmUnread.delete(id);
+  $('chatModeText').textContent = `🔒 Private chat with ${name}`;
+  $('chatModeBanner').classList.add('visible');
+  openChat(`dms/${pairKey(deviceId, id)}`);
+  renderPin();
+  showToast(`Private chat with ${name}`);
+}
+$('exitChatModeBtn').addEventListener('click', () => {
+  activeDm = null; $('chatModeBanner').classList.remove('visible');
+  openChat('messages'); renderPin(); showToast('Back to World Chat');
+});
+const bootTs = Date.now();
+const onInbox = (snap) => {
+  const v = snap.val(); if (!v || !(v.ts > bootTs)) return;
+  if (activeDm && activeDm.id === snap.key) return;
+  dmUnread.add(snap.key); renderUsersSidebar(); playPing(820);
+  showToast(`💬 New private message from ${v.from || 'someone'}`);
+};
+onChildAdded(ref(db, `dmInbox/${deviceId}`), onInbox);
+onChildChanged(ref(db, `dmInbox/${deviceId}`), onInbox);
+
+// =========================================
+// 4. SENDING HELPERS
+// =========================================
+function pushMsg(payload) {
+  const p = { username, deviceId, timestamp: Date.now(), ...payload };
+  if (replyingTo && !payload.noReply) p.replyTo = replyingTo;
+  delete p.noReply;
+  const pr = push(ref(db, chatPath), p);
+  if (activeDm) set(ref(db, `dmInbox/${activeDm.id}/${deviceId}`), { from: username, ts: Date.now() }).catch(() => {});
+  return pr;
+}
+function localSystem(text, opts = {}) {
+  const msg = { id: 'local_' + Date.now() + Math.random().toString(36).slice(2, 6), username: 'DORE SYSTEM', deviceId: 'SYSTEM_BOT', isSystem: true, text, timestamp: Date.now(), isLetter: !!opts.letter };
+  msgStore.set(msg.id, msg); renderBubble(msg); toBottom();
+}
+const pubSystem = (text) => pushMsg({ username: 'DORE SYSTEM', deviceId: 'SYSTEM_BOT', isSystem: true, text, noReply: true });
+
+// =========================================
+// 5. QUICK MESSAGES, EMOJI
+// =========================================
+const emojiDrawer = $('emojiDrawer'), quickMsgsDrawer = $('quickMsgsDrawer'), attachDrawer = $('attachDrawer');
+const DEFAULT_QUICK = ['Hello! 👋', 'Hi everyone, how are you? 😊', 'Good morning ☀️', 'Good night 🌙', 'Thank you! 🙏', 'You are welcome 😊', 'Okay, sounds good 👍', 'Give me a minute ⏳', 'Be right back ☕', 'Sorry, I missed that', 'Can you help me? 🤝', 'On my way 🚶', 'Awesome work! 🔥', 'Haha, that is funny 😂', 'Let us talk later', 'See you soon! 👋'];
+function renderQuick(list) {
+  quickMsgsDrawer.innerHTML = '';
+  list.forEach(t => {
+    const b = document.createElement('button'); b.type = 'button'; b.className = 'quick-msg-item'; b.textContent = t;
+    b.addEventListener('click', () => { if (!ensureProfileReady()) return; quickMsgsDrawer.classList.remove('open'); pushMsg({ text: t }); cancelReplyOrEdit(); });
+    quickMsgsDrawer.appendChild(b);
+  });
+}
+renderQuick(DEFAULT_QUICK);
+['😀','😂','🤣','😍','🥳','😎','🤔','😭','😡','🤯','👍','👎','👏','🙌','🔥','⚡','💎','👑','❤️','💔','🎉','🚀','🎯','💯','✅','❌','👀','💀','🤝','🙏'].forEach(em => {
+  const b = document.createElement('button'); b.type = 'button'; b.textContent = em;
+  b.addEventListener('click', () => { messageInput.value += em; syncComposerButtons(); messageInput.focus(); });
+  emojiDrawer.appendChild(b);
+});
+function closeDrawers() { attachDrawer.classList.remove('open'); emojiDrawer.classList.remove('open'); quickMsgsDrawer.classList.remove('open'); }
+$('emojiBtn').addEventListener('click', () => { const o = emojiDrawer.classList.contains('open'); closeDrawers(); emojiDrawer.classList.toggle('open', !o); });
+$('quickMsgBtn').addEventListener('click', () => { const o = quickMsgsDrawer.classList.contains('open'); closeDrawers(); quickMsgsDrawer.classList.toggle('open', !o); });
+$('plusBtn').addEventListener('click', (e) => { e.stopPropagation(); const o = attachDrawer.classList.contains('open'); closeDrawers(); attachDrawer.classList.toggle('open', !o); });
+
+const replyPreview = $('replyPreview'), replyPreviewText = $('replyPreviewText');
+function startReply(msg) {
+  editingMsgId = null;
+  replyingTo = { id: msg.id, username: msg.username, text: msg.text || (msg.mediaType ? `[${msg.mediaType}]` : (msg.poll ? `Poll: ${msg.poll.question}` : 'Message')) };
+  replyPreviewText.innerHTML = `<strong>Replying to ${escapeHtml(replyingTo.username)}</strong>${escapeHtml(replyingTo.text.slice(0, 100))}`;
+  replyPreview.classList.add('active'); messageInput.focus();
+}
+function startEdit(msg) {
+  if (msg.deviceId !== deviceId || msg.deleted || !msg.text || msg.isSystem) return;
+  replyingTo = null; editingMsgId = msg.id;
+  replyPreviewText.innerHTML = `<strong>Editing message</strong>${escapeHtml(msg.text.slice(0, 100))}`;
+  replyPreview.classList.add('active'); messageInput.value = msg.text; syncComposerButtons(); messageInput.focus();
+}
+function cancelReplyOrEdit() { replyingTo = null; editingMsgId = null; replyPreview.classList.remove('active'); }
+$('replyCancel').addEventListener('click', () => { cancelReplyOrEdit(); messageInput.value = ''; syncComposerButtons(); });
+messageInput.addEventListener('input', () => { syncComposerButtons(); notifyTyping(); });
+
+// =========================================
+// 6. COMMANDS (33 public + /admin letter, hidden admin phrase)
+// =========================================
+const HELP_OLD = '🤖 *33 Commands*\n/help /roll /flip /8ball /time /online /shrug /poll /ping /echo /reverse /uppercase /lowercase /calc /random /binary /base64 /md5 /color /joke /quote /fact /cipher /passwd /weather /date /uuid /counter /countdown /status /clearboard /matrix /avatar\n\n✉️ */admin your request* — write a letter to the admin to ask for a new command or feature.';
+const rnd = (a, b) => Math.floor(Math.random() * (b - a + 1)) + a;
+const pick = (arr) => arr[rnd(0, arr.length - 1)];
+const say = (t) => localSystem(t);
+const sha256Hex = async (str) => [...new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str)))].map(b => b.toString(16).padStart(2, '0')).join('');
+
+function sendAdminLetter(body) {
+  if (!body) return say('✉️ *Letter to the Admin*\nWrite your request after the command, for example:\n`/admin Please add a /dice command with 20 sides`');
+  const letter = `Dear Admin,\n\nI hope this letter finds you well. I am writing to kindly request the following:\n\n“${body}”\n\nI would be most grateful for your kind consideration.\n\nYours sincerely,\n${username}\n${new Date().toLocaleString()}`;
+  push(ref(db, 'adminRequests'), { username, deviceId, body, letter, ts: Date.now() })
+    .then(() => localSystem(letter + '\n\n✓ Delivered to the admin’s inbox.', { letter: true }))
+    .catch(() => showToast('Could not deliver your letter. Check your connection.'));
+}
+
+const CMDS = {
+  help: () => openHelp(), commands: () => openHelp(),
+  roll: (a) => { const m = Math.max(2, parseInt(a) || 6); pubSystem(`🎲 *${username}* rolled *${rnd(1, m)}* (1–${m})`); },
+  flip: () => pubSystem(`🪙 *${username}* flipped: *${Math.random() < .5 ? 'HEADS' : 'TAILS'}*`),
+  '8ball': (a) => a ? pubSystem(`🎱 *Q:* ${a}\n*A:* ${pick(['Yes, definitely.', 'Without a doubt.', 'Signs point to yes.', 'Ask again later.', 'My sources say no.', 'Very doubtful.'])}`) : showToast('Ask a question! e.g. /8ball Will I win?'),
+  time: () => say(`🕒 *Time:* ${new Date().toLocaleTimeString()}`),
+  online: () => { const n = Object.values(onlineUsersMap).map(u => u.username).filter(Boolean); say(`🟢 *Online (${n.length}):* ${n.join(', ') || username}`); },
+  shrug: (a) => pushMsg({ text: `${a ? a + ' ' : ''}¯\\_(ツ)_/¯` }),
+  poll: () => $('pollModal').classList.add('open'),
+  ping: () => say('🏓 *Pong!* Connection is live.'),
+  echo: (a) => say(`🗣️ ${a || 'Nothing to echo'}`),
+  reverse: (a) => say(`🔄 ${[...(a || '')].reverse().join('')}`),
+  uppercase: (a) => say(`🔠 ${(a || '').toUpperCase()}`),
+  lowercase: (a) => say(`🔡 ${(a || '').toLowerCase()}`),
+  calc: (a) => {
+    if (!a || !/^[0-9+\-*/().%\s^]+$/.test(a)) return say('⚠️ Use numbers and + - * / ( ) % ^ only.');
+    try { const r = Function(`'use strict';return (${a.replace(/\^/g, '**')})`)(); say(`🔢 ${a} = *${r}*`); } catch { say('⚠️ Invalid expression.'); }
+  },
+  random: (a) => { const p = a.split('-').map(n => parseInt(n, 10)); const lo = isNaN(p[0]) ? 1 : p[0], hi = isNaN(p[1]) ? 100 : p[1]; say(`🎲 *Random (${lo}-${hi}):* ${rnd(Math.min(lo, hi), Math.max(lo, hi))}`); },
+  binary: (a) => say(`💻 ${[...(a || '')].map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ')}`),
+  base64: (a) => { try { say(`🔐 ${btoa(unescape(encodeURIComponent(a || '')))}`); } catch { say('⚠️ Encoding failed.'); } },
+  md5: async (a) => say(`🔑 *SHA-256:* ${(await sha256Hex(a || '')).slice(0, 40)}…`),
+  color: () => { const h = '#' + rnd(0, 16777215).toString(16).padStart(6, '0'); say(`🎨 *Random colour:* ${h}`); },
+  joke: () => say(pick(['😂 Why do programmers prefer dark mode? Because light attracts bugs.', '😂 There are 10 kinds of people: those who know binary and those who don’t.', '😂 A SQL query walks into a bar, sees two tables and asks: “Can I join you?”'])),
+  quote: () => say(pick(['📜 “Simplicity is the soul of efficiency.”', '📜 “First, solve the problem. Then, write the code.”', '📜 “Make it work, make it right, make it fast.”'])),
+  fact: () => say(pick(['💡 The first computer mouse was made of wood in 1964.', '💡 The first email was sent in 1971.', '💡 The first webcam watched a coffee pot at Cambridge.'])),
+  cipher: (a) => say(`🔒 *ROT13:* ${(a || '').replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26))}`),
+  passwd: () => { const cs = 'abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789!@#$%'; const r = crypto.getRandomValues(new Uint32Array(16)); say(`🔑 *Password:* ${[...r].map(n => cs[n % cs.length]).join('')}`); },
+  weather: () => say('🌤️ Live weather is not connected yet. Ask the admin with /admin if you want it!'),
+  date: () => say(`📅 ${new Date().toDateString()}`),
+  uuid: () => say(`🆔 ${crypto.randomUUID()}`),
+  counter: () => say(`🔢 *Messages loaded in this chat:* ${[...msgStore.values()].filter(m => !m.local && !String(m.id).startsWith('local_')).length}`),
+  countdown: (a) => {
+    let n = Math.min(60, Math.max(1, parseInt(a) || 10)); showToast(`⏳ ${n}s`);
+    const t = setInterval(() => { n--; if (n <= 0) { clearInterval(t); playPing(900); localSystem('⏳ Countdown finished!'); } else showToast(`⏳ ${n}s`); }, 1000);
+  },
+  status: () => say(`📊 *${username}* — ${userBio}`),
+  clearboard: () => { [...messagesContainer.children].forEach(c => c.remove()); lastDateLabel = ''; showToast('Your view was cleared (messages are not deleted).'); },
+  matrix: () => say('🟢 ' + [...'matrix'].map(c => c.charCodeAt(0).toString(2).padStart(8, '0')).join(' ')),
+  avatar: () => openProfileSetup(false),
+  admin: (a) => sendAdminLetter(a)
+};
+
+function playGodDescent() {
+  const el = $('god-descent');
+  if (!el) return;
+  el.classList.remove('fade');
+  el.classList.add('active');
+  playPing(220); setTimeout(() => playPing(330), 180); setTimeout(() => playPing(440), 360); setTimeout(() => playPing(880), 600);
+  setTimeout(() => {
+    el.classList.add('fade');
+    setTimeout(() => { el.classList.remove('active', 'fade'); }, 900);
+  }, 4000);
+}
+function grantAdmin() {
+  isAdmin = true; localStorage.setItem('dore_is_admin', 'true');
+  adminCustomBtn.style.display = 'flex';
+  adminCustomBtn.classList.add('creator-mode');
+  set(ref(db, `admins/${deviceId}`), { username, ts: Date.now() }).catch(() => {});
+  watchRequests();
+  playGodDescent();
+  setTimeout(() => localSystem('👑 *Creative mode unlocked.* The Creator has descended. Tap the ⚙ button in the header to reshape the realm for everyone.'), 4200);
+}
+function runCommand(raw) {
+  const i = raw.search(/\s/), cmd = (i === -1 ? raw : raw.slice(0, i)).slice(1).toLowerCase(), arg = i === -1 ? '' : raw.slice(i + 1).trim();
+  const fn = Object.prototype.hasOwnProperty.call(CMDS, cmd) ? CMDS[cmd] : null;
+  if (fn) fn(arg); else say('⚠️ Unknown command. Type /help for the list.');
+}
+
+
+// ---- Help box ----
+const HELP_DATA = [
+  ['Chat & info', [
+    ['/help', 'Opens this help box.', '', 1], ['/time', 'Shows your current time.', '', 1], ['/date', 'Shows today’s date.', '', 1],
+    ['/online', 'Lists everyone who is online right now.', '', 1], ['/status', 'Shows your name and status bio.', '', 1],
+    ['/counter', 'Counts the messages loaded in this chat.', '', 1], ['/ping', 'Checks that the connection is alive.', '', 1],
+    ['/avatar', 'Opens your profile so you can change your photo and name.', '', 1], ['/clearboard', 'Clears your own view of the chat (nothing is deleted for others).', '', 1],
+    ['/poll', 'Creates a live poll. Without text it opens the poll builder.', '/poll Best day? | Friday | Saturday', 0],
+    ['/shrug', 'Sends a shrug, with optional text before it.', '/shrug oh well', 0],
+    ['/echo', 'Repeats your text back to you.', '/echo hello', 0]]],
+  ['Fun & games', [
+    ['/roll', 'Rolls a dice for everyone. Default is 6 sides.', '/roll 20', 0], ['/flip', 'Flips a coin for everyone.', '', 1],
+    ['/8ball', 'Ask a yes/no question and get an answer from everyone’s favourite ball.', '/8ball Will it rain?', 0],
+    ['/random', 'Picks a random number in a range (default 1–100).', '/random 10-50', 0],
+    ['/joke', 'Tells a random programmer joke.', '', 1], ['/quote', 'Shows a random quote.', '', 1], ['/fact', 'Shows a random fun fact.', '', 1],
+    ['/matrix', 'Prints “matrix” in binary.', '', 1], ['/color', 'Gives you a random colour code.', '', 1],
+    ['/countdown', 'Starts a countdown (1–60 seconds) with a chime at the end.', '/countdown 15', 0]]],
+  ['Text & tools', [
+    ['/reverse', 'Reverses your text.', '/reverse hello', 0], ['/uppercase', 'Converts text to CAPITALS.', '/uppercase hello', 0],
+    ['/lowercase', 'Converts text to small letters.', '/lowercase HELLO', 0], ['/calc', 'Calculates maths. Supports + - * / ( ) % ^', '/calc (12+8)*3', 0],
+    ['/binary', 'Turns text into binary code.', '/binary hi', 0], ['/base64', 'Encodes text as Base64.', '/base64 hello', 0],
+    ['/md5', 'Creates a SHA-256 fingerprint (hash) of your text.', '/md5 hello', 0], ['/cipher', 'Scrambles text with ROT13 (run it again to unscramble).', '/cipher hello', 0],
+    ['/passwd', 'Generates a strong random password. Only you see it.', '', 1], ['/uuid', 'Generates a unique ID.', '', 1],
+    ['/weather', 'Weather is not connected yet. Ask the admin to add it!', '', 1]]],
+  ['Talk to the admin', [
+    ['/admin', 'Writes a formal letter to the admin to request a new command or feature. Your name is added automatically.', '/admin Please add a /dice command', 0]]]
+];
+function openHelp() { $('helpSearch').value = ''; renderHelp(); $('helpModal').classList.add('open'); }
+function renderHelp() {
+  const q = $('helpSearch').value.trim().toLowerCase(), box = $('helpList'); box.innerHTML = '';
+  HELP_DATA.forEach(([g, items]) => {
+    const list = items.filter(([c, d]) => !q || c.includes(q) || d.toLowerCase().includes(q)); if (!list.length) return;
+    box.insertAdjacentHTML('beforeend', `<div class="help-group">${g}</div>`);
+    list.forEach(([c, d, ex, run]) => {
+      const el = document.createElement('div'); el.className = 'help-item';
+      el.innerHTML = `<div><code>${c}</code><div class="hd">${escapeHtml(d)}</div>${ex ? `<div class="hex">Example: ${escapeHtml(ex)}</div>` : ''}</div>${run ? '<button class="help-run" type="button">▶ Run</button>' : ''}`;
+      el.addEventListener('click', (e) => {
+        $('helpModal').classList.remove('open');
+        if (run && e.target.closest('.help-run') && c !== '/help') { messageInput.value = c; sendTextMessage(); }
+        else { messageInput.value = ex || c + ' '; syncComposerButtons(); messageInput.focus(); }
+      });
+      box.appendChild(el);
+    });
+  });
+  if (!box.children.length) box.innerHTML = '<div style="color:#888;font-size:.85rem;">No commands match your search.</div>';
+}
+$('helpSearch').addEventListener('input', renderHelp);
+$('helpBtn').addEventListener('click', openHelp);
+$('closeHelpBtn').addEventListener('click', () => $('helpModal').classList.remove('open'));
+
+function clearComposer() { messageInput.value = ''; closeDrawers(); cancelReplyOrEdit(); syncComposerButtons(); remove(myTypingRef); }
+async function sendTextMessage() {
+  if (!ensureProfileReady()) return;
+  const raw = messageInput.value.trim(); if (!raw) return;
+  if (raw.startsWith('/') && isSecretCommand(raw)) { clearComposer(); grantAdmin(); return; }
+  if (/^\/poll(\s|$)/i.test(raw)) {
+    const rest = raw.replace(/^\/poll\s*/i, '').trim();
+    if (!rest) { clearComposer(); $('pollModal').classList.add('open'); return; }
+    const parts = rest.split('|').map(s => s.trim()).filter(Boolean);
+    if (parts.length < 3) return showToast('Format: /poll Question | Option 1 | Option 2');
+    pushPoll(parts[0], parts.slice(1, 5)); clearComposer(); return;
+  }
+  if (raw.startsWith('/') && !editingMsgId) { clearComposer(); runCommand(raw); return; }
+  if (editingMsgId) {
+    update(ref(db, `${chatPath}/${editingMsgId}`), { text: raw, edited: true });
+    clearComposer(); showToast('Message edited'); return;
+  }
+  pushMsg({ text: raw });
+  clearComposer();
+}
+sendBtn.addEventListener('click', sendTextMessage);
+messageInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendTextMessage(); }
+  else if (e.key === 'ArrowUp' && !messageInput.value) {
+    const mine = [...msgStore.values()].reverse().find(m => m.deviceId === deviceId && m.text && !m.deleted && !m.isSystem);
+    if (mine) { e.preventDefault(); startEdit(mine); }
+  } else if (e.key === 'Escape') cancelReplyOrEdit();
+});
+
+// =========================================
+// 7. MEDIA UPLOAD (fixed: timeouts + automatic fallback)
+// =========================================
+const fileInput = $('fileInput'), cameraInput = $('cameraInput'), mediaModal = $('mediaModal'), mediaPreviewBox = $('mediaPreviewBox');
+let pendingFile = null, sendToken = 0;
+let storageBroken = sessionStorage.getItem('dore_storage_broken') === '1';
+const MAX_FALLBACK = 6 * 1024 * 1024;
+
+function blobToDataUrl(blob) {
+  return new Promise((res, rej) => { const r = new FileReader(); r.onloadend = () => res(r.result); r.onerror = () => rej(new Error('read failed')); r.readAsDataURL(blob); });
+}
+function uploadFile(path, blob, onProgress) {
+  return new Promise((resolve, reject) => {
+    const task = uploadBytesResumable(sRef(storage, path), blob, { contentType: blob.type || undefined });
+    let timer; const arm = () => { clearTimeout(timer); timer = setTimeout(() => { try { task.cancel(); } catch {} reject(new Error('Upload stalled')); }, 8000); };
+    arm();
+    task.on('state_changed',
+      (s) => { arm(); onProgress && onProgress(Math.round(100 * s.bytesTransferred / Math.max(1, s.totalBytes))); },
+      (e) => { clearTimeout(timer); reject(e); },
+      async () => { clearTimeout(timer); try { resolve(await getDownloadURL(task.snapshot.ref)); } catch (e) { reject(e); } });
+  });
+}
+async function storeMedia(blob, path, status) {
+  if (!storageBroken) {
+    try { return await uploadFile(path, blob, (p) => status(`Uploading… ${p}%`)); }
+    catch (e) { console.warn('Storage upload failed, using database fallback:', e); storageBroken = true; sessionStorage.setItem('dore_storage_broken', '1'); }
+  }
+  if (blob.size > MAX_FALLBACK) throw new Error('File too large (max 6 MB)');
+  status('Sending…');
+  return await blobToDataUrl(blob);
+}
+function compressImage(file) {
+  return new Promise((resolve) => {
+    if (file.type === 'image/gif') return resolve(file);
+    const img = new Image(), url = URL.createObjectURL(file);
+    img.onload = () => {
+      const max = 1280; let { width: w, height: h } = img;
+      if (w > max || h > max) { if (w > h) { h = Math.round(h * max / w); w = max; } else { w = Math.round(w * max / h); h = max; } }
+      const c = document.createElement('canvas'); c.width = w; c.height = h; c.getContext('2d').drawImage(img, 0, 0, w, h);
+      c.toBlob((b) => resolve(b || file), 'image/jpeg', 0.8); URL.revokeObjectURL(url);
+    };
+    img.onerror = () => resolve(file);
+    img.src = url;
+  });
+}
+function openMediaPreview(file) {
+  if (!file || !ensureProfileReady()) return;
+  pendingFile = file; mediaPreviewBox.innerHTML = '';
+  const url = URL.createObjectURL(file);
+  const el = document.createElement(file.type.startsWith('video/') ? 'video' : 'img');
+  el.src = url; if (el.tagName === 'VIDEO') { el.controls = true; el.playsInline = true; }
+  mediaPreviewBox.appendChild(el);
+  $('mediaCaptionInput').value = ''; $('viewOnceCheck').checked = false; $('uploadProgressText').textContent = '';
+  $('confirmSendMediaBtn').disabled = false;
+  mediaModal.classList.add('open');
+}
+$('pickPhotoBtn').addEventListener('click', () => { closeDrawers(); fileInput.click(); });
+$('openCameraBtn').addEventListener('click', () => { closeDrawers(); cameraInput.click(); });
+const videoCameraInput = $('videoCameraInput');
+$('openVideoCamBtn')?.addEventListener('click', () => { closeDrawers(); videoCameraInput.click(); });
+fileInput.addEventListener('change', (e) => { openMediaPreview(e.target.files[0]); e.target.value = ''; });
+cameraInput.addEventListener('change', (e) => { openMediaPreview(e.target.files[0]); e.target.value = ''; });
+videoCameraInput.addEventListener('change', (e) => { openMediaPreview(e.target.files[0]); e.target.value = ''; });
+window.addEventListener('paste', (e) => { const it = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/')); if (it) openMediaPreview(it.getAsFile()); });
+
+// Location & stickers from plus menu
+$('openLocationBtn')?.addEventListener('click', () => {
+  closeDrawers();
+  if (!ensureProfileReady()) return;
+  if (!navigator.geolocation) return showToast('Location not supported on this device');
+  showToast('Getting your location…');
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const { latitude, longitude } = pos.coords;
+      const mapsUrl = `https://maps.google.com/?q=${latitude},${longitude}`;
+      pushMsg({ text: `📍 Shared location\n${mapsUrl}\n(${latitude.toFixed(5)}, ${longitude.toFixed(5)})` });
+      showToast('Location shared');
+    },
+    () => showToast('Could not get location — allow permission and try again'),
+    { enableHighAccuracy: true, timeout: 12000 }
+  );
+});
+const STICKERS = ['🔥','💎','👑','⚡','🚀','💀','❤️','✨','🌟','😈','🧿','🛡️','⚔️','🏆','👁️','🌌'];
+$('openStickerBtn')?.addEventListener('click', () => {
+  closeDrawers();
+  if (!ensureProfileReady()) return;
+  const pick = STICKERS[Math.floor(Math.random() * STICKERS.length)];
+  pushMsg({ text: pick + ' ' + pick + ' ' + pick });
+  showToast('Sticker sent');
+});
+$('cancelMediaBtn').addEventListener('click', () => { sendToken++; pendingFile = null; mediaModal.classList.remove('open'); });
+
+$('confirmSendMediaBtn').addEventListener('click', async (e) => {
+  if (!pendingFile || !ensureProfileReady()) return;
+  const btn = e.currentTarget, statusTxt = $('uploadProgressText'), token = ++sendToken;
+  const isVideo = pendingFile.type.startsWith('video/'), viewOnce = $('viewOnceCheck').checked, caption = $('mediaCaptionInput').value.trim();
+  btn.disabled = true; statusTxt.textContent = 'Preparing…';
+  try {
+    const blob = isVideo ? pendingFile : await compressImage(pendingFile);
+    const safe = (pendingFile.name || 'file').replace(/[^\w.\-]/g, '_');
+    const mediaUrl = await storeMedia(blob, `dore_media/${Date.now()}_${safe}`, (t) => { if (token === sendToken) statusTxt.textContent = t; });
+    if (token !== sendToken) return;
+    Promise.resolve(pushMsg({ mediaType: isVideo ? 'video' : 'image', mediaUrl, viewOnce, text: caption })).catch(() => showToast('⚠️ Could not save the message. Check your database rules.'));
+    cancelReplyOrEdit(); pendingFile = null; statusTxt.textContent = ''; mediaModal.classList.remove('open'); toBottom();
+  } catch (err) {
+    console.error(err); statusTxt.textContent = '⚠️ ' + (err.message || 'Upload failed') + ' — try a smaller file.';
+  } finally { btn.disabled = false; }
+});
+
+// =========================================
+// 8. VOICE NOTES (fixed)
+// =========================================
+const composerEl = $('composer'), recorderEl = $('recorder'), recTimeEl = $('recTime');
+let mediaRecorder = null, audioChunks = [], recTimer = null, recSeconds = 0, recording = false;
+
+micBtn.addEventListener('click', async (e) => {
+  e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+  if (recording || !ensureProfileReady()) return;
+  closeDrawers();
+  if (/FBAN|FBAV|Instagram|Snapchat|Line\/|Telegram|; wv\)/i.test(navigator.userAgent)) showToast('In-app browsers often block the mic — open this page in Chrome or Safari');
+  if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return showToast('Voice recording is not supported here. Open the site in Chrome or Safari (https).');
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg;codecs=opus'].find(t => MediaRecorder.isTypeSupported(t)) || '';
+    audioChunks = []; recSeconds = 0; recTimeEl.textContent = '0:00';
+    mediaRecorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+    mediaRecorder.ondataavailable = (ev) => { if (ev.data && ev.data.size > 0) audioChunks.push(ev.data); };
+    mediaRecorder.start(250); recording = true;
+    composerEl.classList.add('hidden'); recorderEl.classList.remove('hidden');
+    recTimer = setInterval(() => { recSeconds++; recTimeEl.textContent = `${Math.floor(recSeconds / 60)}:${String(recSeconds % 60).padStart(2, '0')}`; }, 1000);
+  } catch (err) {
+    showToast(err.name === 'NotAllowedError' ? 'Microphone is blocked — allow it in your browser/site settings' : err.name === 'NotFoundError' ? 'No microphone found on this device' : 'Mic error: ' + (err.name || 'unknown'));
+  }
+});
+function stopRecording(sendIt) {
+  if (!mediaRecorder || !recording) return;
+  recording = false; clearInterval(recTimer);
+  recorderEl.classList.add('hidden'); composerEl.classList.remove('hidden');
+  const rec = mediaRecorder, dur = recSeconds;
+  rec.onstop = async () => {
+    rec.stream.getTracks().forEach(t => t.stop());
+    if (!sendIt || !audioChunks.length) return;
+    const type = rec.mimeType || 'audio/webm', blob = new Blob(audioChunks, { type });
+    const ext = type.includes('mp4') ? 'm4a' : type.includes('ogg') ? 'ogg' : 'webm';
+    showToast('Sending voice note…');
+    try {
+      const mediaUrl = await storeMedia(blob, `dore_voice/${Date.now()}.${ext}`, () => {});
+      Promise.resolve(pushMsg({ mediaType: 'voice', mediaUrl, duration: dur })).catch(() => showToast('⚠️ Could not save the voice note. Check your database rules.'));
+      cancelReplyOrEdit(); toBottom(); showToast('Voice note sent ✓');
+    } catch (err) { console.error(err); showToast('⚠️ Voice note failed: ' + (err.message || 'try again')); }
+  };
+  try { rec.stop(); } catch { rec.stream.getTracks().forEach(t => t.stop()); }
+}
+$('recCancel').addEventListener('click', () => stopRecording(false));
+$('recSend').addEventListener('click', () => { if (recSeconds < 1) return showToast('Hold on — record a little longer'); stopRecording(true); });
+
+// =========================================
+// 9. POLLS
+// =========================================
+const pollModal = $('pollModal');
+$('openPollBtn').addEventListener('click', () => { closeDrawers(); pollModal.classList.add('open'); });
+$('cancelPollBtn').addEventListener('click', () => pollModal.classList.remove('open'));
+function pushPoll(question, options) {
+  if (!ensureProfileReady()) return;
+  const opts = {}; options.forEach((label, i) => { opts['opt_' + i] = { label }; });
+  pushMsg({ poll: { question, options: opts }, noReply: true }); showToast('Poll launched!');
+}
+$('sendPollBtn').addEventListener('click', () => {
+  const q = $('pollQuestion').value.trim();
+  const opts = [1, 2, 3, 4].map(i => $('pollOpt' + i).value.trim()).filter(Boolean);
+  if (!q || opts.length < 2) return showToast('Enter a question and at least 2 options');
+  pushPoll(q, opts);
+  ['pollQuestion', 'pollOpt1', 'pollOpt2', 'pollOpt3', 'pollOpt4'].forEach(id => $(id).value = '');
+  pollModal.classList.remove('open');
+});
+
+// =========================================
+// 10. DELETE, GESTURES, CONTEXT MENU
+// =========================================
+function handleDeleteMessage(msg) {
+  if (!msg) return;
+  if (msg.deviceId === deviceId && !msg.isSystem) {
+    update(ref(db, `${chatPath}/${msg.id}`), { deleted: true, text: 'This message was deleted', mediaUrl: null, poll: null });
+    showToast('Deleted for everyone');
+  } else {
+    hiddenForMeIds.add(msg.id);
+    localStorage.setItem('dore_hidden_msgs', JSON.stringify([...hiddenForMeIds].slice(-500)));
+    document.querySelector(`.message-row[data-id="${CSS.escape(msg.id)}"]`)?.remove();
+    showToast('Deleted for you');
+  }
+}
+function attachGestures(bubbleEl, msg) {
+  const lb = bubbleEl.querySelector('.swipe-badge.left'), rb = bubbleEl.querySelector('.swipe-badge.right');
+  let startX = 0, startY = 0, dx = 0, tracking = false, horizontal = null, pid = null, lastTap = 0, lp = null;
+  bubbleEl.addEventListener('pointerdown', (e) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    if (e.target.closest('button, input, a, .quote, .poll-opt, audio, video')) return;
+    tracking = true; horizontal = null; pid = e.pointerId; startX = e.clientX; startY = e.clientY; dx = 0;
+    bubbleEl.classList.remove('snap-back');
+    lp = setTimeout(() => { tracking = false; if (navigator.vibrate) navigator.vibrate(20); openContextMenu(e.clientX, e.clientY, msg); }, 520);
+  });
+  bubbleEl.addEventListener('pointermove', (e) => {
+    if (!tracking || e.pointerId !== pid) return;
+    const mx = e.clientX - startX, my = e.clientY - startY;
+    if (Math.abs(mx) > 8 || Math.abs(my) > 8) clearTimeout(lp);
+    if (horizontal === null) {
+      if (Math.abs(mx) < 10 && Math.abs(my) < 10) return;
+      horizontal = Math.abs(mx) > Math.abs(my);
+      if (!horizontal) { tracking = false; return; }
+      bubbleEl.setPointerCapture(pid); bubbleEl.classList.add('swiping');
+    }
+    const mine = msg.deviceId === deviceId && !msg.isSystem;
+    dx = mine ? Math.max(-85, Math.min(85, mx)) : Math.max(0, Math.min(85, mx));
+    bubbleEl.style.transform = `translateX(${dx}px)`;
+    lb.style.opacity = dx > 0 ? Math.min(dx / 55, 1) : 0; rb.style.opacity = dx < 0 ? Math.min(Math.abs(dx) / 55, 1) : 0;
+  });
+  function end(e) {
+    clearTimeout(lp);
+    if (!tracking || (e && e.pointerId !== pid)) return;
+    tracking = false;
+    if (horizontal && Math.abs(dx) >= 55) { if (navigator.vibrate) navigator.vibrate(15); if (dx > 0) startReply(msg); else startEdit(msg); }
+    else if (!horizontal) { const now = Date.now(); if (now - lastTap < 300) toggleReaction(msg.id, '❤️'); lastTap = now; }
+    bubbleEl.classList.remove('swiping'); bubbleEl.classList.add('snap-back'); bubbleEl.style.transform = '';
+    lb.style.opacity = 0; rb.style.opacity = 0; dx = 0;
+  }
+  bubbleEl.addEventListener('pointerup', end); bubbleEl.addEventListener('pointercancel', end);
+  bubbleEl.addEventListener('contextmenu', (e) => { e.preventDefault(); openContextMenu(e.clientX, e.clientY, msg); });
+}
+const msgMenu = $('msgMenu'), menuReactions = $('menuReactions');
+let activeMenuMsg = null;
+function toggleReaction(msgId, emoji) {
+  const msg = msgStore.get(msgId);
+  if (!msg || msg.deleted || String(msgId).startsWith('local_')) return;
+  const r = ref(db, `${chatPath}/${msgId}/reactions/${emoji}/${deviceId}`);
+  if (msg.reactions?.[emoji]?.[deviceId]) remove(r); else set(r, username || 'Guest');
+}
+function openContextMenu(x, y, msg) {
+  activeMenuMsg = msg; menuReactions.innerHTML = '';
+  ['❤️', '😂', '😮', '😢', '🙏', '👍'].forEach(em => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = em;
+    b.onclick = () => { toggleReaction(msg.id, em); closeContextMenu(); };
+    menuReactions.appendChild(b);
+  });
+  const mine = msg.deviceId === deviceId && !msg.isSystem;
+  $('menuEditBtn').style.display = (mine && msg.text && !msg.deleted) ? 'flex' : 'none';
+  msgMenu.querySelector('[data-action=pin]').style.display = (activeDm || msg.isSystem) ? 'none' : 'flex';
+  $('menuDeleteBtn').innerHTML = mine ? '&#128465;&nbsp; Delete for everyone' : '&#128465;&nbsp; Delete for you';
+  msgMenu.classList.add('open');
+  const rect = msgMenu.getBoundingClientRect();
+  msgMenu.style.left = Math.max(8, Math.min(x, window.innerWidth - rect.width - 12)) + 'px';
+  msgMenu.style.top = Math.max(8, Math.min(y, window.innerHeight - rect.height - 12)) + 'px';
+}
+function closeContextMenu() { msgMenu.classList.remove('open'); activeMenuMsg = null; }
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#msgMenu')) closeContextMenu();
+  if (!e.target.closest('.composer-bar')) closeDrawers();
+});
+msgMenu.querySelectorAll('.menu-action').forEach(btn => btn.addEventListener('click', () => {
+  const m = activeMenuMsg; if (!m) return; const act = btn.dataset.action;
+  if (act === 'reply') startReply(m);
+  if (act === 'edit') startEdit(m);
+  if (act === 'pin') { set(pinnedRef, { id: m.id, username: m.username, text: m.text || (m.poll ? `Poll: ${m.poll.question}` : '[Media]') }); showToast('Message pinned'); }
+  if (act === 'star') { starredIds.has(m.id) ? starredIds.delete(m.id) : starredIds.add(m.id); localStorage.setItem('dore_starred', JSON.stringify([...starredIds])); renderBubble(m); }
+  if (act === 'copy' && m.text) { navigator.clipboard?.writeText(m.text); showToast('Copied to clipboard'); }
+  if (act === 'delete') handleDeleteMessage(m);
+  closeContextMenu();
+}));
+
+// =========================================
+// 11. PIN, LIGHTBOX
+// =========================================
+let worldPin = null;
+function renderPin() {
+  const bar = $('pinnedBar');
+  if (activeDm || !worldPin) { bar.classList.remove('visible'); return; }
+  $('pinnedInfo').innerHTML = `&#128204; <strong>${escapeHtml(worldPin.username)}:</strong> ${escapeHtml(worldPin.text)}`;
+  bar.classList.add('visible');
+}
+onValue(pinnedRef, (s) => { worldPin = s.val(); renderPin(); });
+$('pinnedInfo').addEventListener('click', () => { if (worldPin) scrollToMessage(worldPin.id); });
+$('unpinBtn').addEventListener('click', (e) => { e.stopPropagation(); remove(pinnedRef); });
+const lightbox = $('lightbox');
+lightbox.addEventListener('click', () => { lightbox.classList.remove('open'); lightbox.innerHTML = ''; });
+function openLightbox(type, url) {
+  lightbox.innerHTML = type === 'video' ? `<video src="${url}" controls autoplay playsinline></video>` : `<img src="${url}" alt="Media">`;
+  lightbox.classList.add('open');
+}
+function scrollToMessage(id) {
+  const el = document.querySelector(`[data-id="${CSS.escape(id)}"]`); if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const b = el.querySelector('.message'); b?.classList.add('highlight'); setTimeout(() => b?.classList.remove('highlight'), 1300);
+}
+
+// =========================================
+// 12. RENDER ENGINE
+// =========================================
+function renderBubble(msg) {
+  if (hiddenForMeIds.has(msg.id)) return;
+  let row = document.querySelector(`.message-row[data-id="${CSS.escape(msg.id)}"]`);
+  const isMine = msg.deviceId === deviceId, isSystem = Boolean(msg.isSystem || msg.deviceId === 'SYSTEM_BOT');
+  if (!row) {
+    const day = formatDateDay(msg.timestamp);
+    if (day !== lastDateLabel) {
+      lastDateLabel = day;
+      const d = document.createElement('div'); d.className = 'date-divider'; d.textContent = day; messagesContainer.appendChild(d);
+    }
+    row = document.createElement('div');
+    row.className = `message-row ${isSystem ? 'system' : ((altCounter++ % 2 === 0) ? 'side-left' : 'side-right')} ${isMine ? 'mine' : 'other'}`;
+    row.dataset.id = msg.id; messagesContainer.appendChild(row);
+  }
+  const color = userColor(msg.username || 'Guest');
+  const starred = starredIds.has(msg.id);
+  let quoteHtml = '';
+  if (msg.replyTo && !msg.deleted) quoteHtml = `<div class="quote" data-target="${escapeHtml(msg.replyTo.id || '')}"><strong>${escapeHtml(msg.replyTo.username)}</strong>${escapeHtml(msg.replyTo.text)}</div>`;
+
+  let mediaHtml = '';
+  if (!msg.deleted && msg.mediaUrl) {
+    if (msg.viewOnce) {
+      const opened = msg.viewedBy && msg.viewedBy[deviceId];
+      mediaHtml = `<button class="view-once-pill ${opened ? 'opened' : ''}" data-viewonce="1" type="button">${opened ? '&#128683; Opened' : '&#128065; Tap to View Once'}</button>`;
+    } else if (msg.mediaType === 'image') mediaHtml = `<img class="media media-img" src="${msg.mediaUrl}" alt="Photo" loading="lazy">`;
+    else if (msg.mediaType === 'video') mediaHtml = `<video class="media media-video" src="${msg.mediaUrl}" controls playsinline preload="metadata"></video>`;
+    else if (msg.mediaType === 'voice') {
+      const d = msg.duration || 0;
+      mediaHtml = `<div class="voice"><button class="voice-play" type="button">&#9654;</button><input type="range" class="voice-seek" min="0" max="100" value="0"><button class="voice-speed" type="button">1x</button><span class="voice-time">${Math.floor(d / 60)}:${String(d % 60).padStart(2, '0')}</span><audio src="${msg.mediaUrl}" preload="metadata"></audio></div>`;
+    }
+  }
+  let pollHtml = '';
+  if (!msg.deleted && msg.poll && msg.poll.options) {
+    const opts = Object.entries(msg.poll.options);
+    const total = opts.reduce((a, [, o]) => a + Object.keys(o.votes || {}).length, 0);
+    pollHtml = `<div class="poll-box"><div class="poll-q">&#128202; ${escapeHtml(msg.poll.question)}</div>${opts.map(([k, o]) => {
+      const c = Object.keys(o.votes || {}).length, pct = total ? Math.round(c / total * 100) : 0, v = o.votes && o.votes[deviceId];
+      return `<div class="poll-opt ${v ? 'voted' : ''}" data-opt="${k}"><div class="poll-fill" style="width:${pct}%"></div><span>${v ? '&#10003; ' : ''}${escapeHtml(o.label)}</span><span>${c} (${pct}%)</span></div>`;
+    }).join('')}<div class="poll-total">${total} vote${total === 1 ? '' : 's'}</div></div>`;
+  }
+  let reactionsHtml = '';
+  if (msg.reactions) reactionsHtml = Object.entries(msg.reactions).map(([em, us]) => {
+    const c = Object.keys(us || {}).length; if (!c) return '';
+    return `<button class="react-chip ${us[deviceId] ? 'mine' : ''}" data-em="${em}" type="button">${em} ${c}</button>`;
+  }).join('');
+
+  row.innerHTML = `
+    <div class="avatar" data-did="${escapeHtml(msg.deviceId)}" style="background:${isSystem ? 'var(--cyan)' : color}">${isSystem ? '🤖' : avatarInner(msg.deviceId, msg.username)}</div>
+    <div class="message ${msg.deleted ? 'deleted' : ''} ${msg.isLetter ? 'letter' : ''}" style="--sender-color:${isSystem ? 'var(--cyan)' : color}">
+      <span class="swipe-badge left">&#8617;</span><span class="swipe-badge right">&#9998;</span>
+      <div class="sender-header">
+        <span class="sender-name">${isSystem ? (msg.isLetter ? 'LETTER' : 'DORE SYSTEM') : (isMine ? `${escapeHtml(msg.username)} (You)` : escapeHtml(msg.username))}</span>
+        <div class="bubble-actions">${starred ? '<span class="star-tag">&#9733;</span>' : ''}${!isSystem ? `<button class="msg-del-btn" type="button" title="${isMine ? 'Delete for everyone' : 'Delete for you'}">&#128465;</button>` : ''}</div>
+      </div>
+      ${quoteHtml}${mediaHtml}${pollHtml}
+      ${msg.text ? `<div class="text">${msg.deleted ? escapeHtml(msg.text) : formatRichText(msg.text)}</div>` : ''}
+      <div class="reactions">${reactionsHtml}</div>
+      <div class="meta">${msg.edited && !msg.deleted ? '<span>edited</span>' : ''}<span>${formatTime(msg.timestamp)}</span>${isMine && !isSystem ? '<span class="ticks">&#10003;&#10003;</span>' : ''}</div>
+    </div>`;
+
+  attachGestures(row.querySelector('.message'), msg);
+  row.querySelector('.msg-del-btn')?.addEventListener('click', (e) => { e.stopPropagation(); handleDeleteMessage(msg); });
+  const q = row.querySelector('.quote'); if (q) q.addEventListener('click', () => scrollToMessage(q.dataset.target));
+  row.querySelector('.media-img')?.addEventListener('click', () => openLightbox('image', msg.mediaUrl));
+  const vo = row.querySelector('[data-viewonce]');
+  if (vo && !vo.classList.contains('opened')) vo.addEventListener('click', () => { openLightbox(msg.mediaType, msg.mediaUrl); set(ref(db, `${chatPath}/${msg.id}/viewedBy/${deviceId}`), true); });
+
+  const vb = row.querySelector('.voice');
+  if (vb) {
+    const audio = vb.querySelector('audio'), play = vb.querySelector('.voice-play'), seek = vb.querySelector('.voice-seek'), sp = vb.querySelector('.voice-speed'), tm = vb.querySelector('.voice-time');
+    const speeds = [1, 1.5, 2]; let si = 0;
+    const total = () => (isFinite(audio.duration) && audio.duration > 0) ? audio.duration : (msg.duration || 0);
+    play.addEventListener('click', () => {
+      document.querySelectorAll('.voice audio').forEach(a => { if (a !== audio) a.pause(); });
+      if (audio.paused) audio.play().catch(() => showToast('Could not play this voice note')); else audio.pause();
+    });
+    audio.addEventListener('play', () => play.innerHTML = '&#10074;&#10074;');
+    audio.addEventListener('pause', () => play.innerHTML = '&#9654;');
+    sp.addEventListener('click', () => { si = (si + 1) % 3; audio.playbackRate = speeds[si]; sp.textContent = speeds[si] + 'x'; });
+    audio.addEventListener('timeupdate', () => {
+      const t = total(); if (t) seek.value = Math.min(100, audio.currentTime / t * 100);
+      const c = Math.floor(audio.currentTime); tm.textContent = `${Math.floor(c / 60)}:${String(c % 60).padStart(2, '0')}`;
+    });
+    audio.addEventListener('ended', () => { play.innerHTML = '&#9654;'; seek.value = 0; });
+    seek.addEventListener('input', () => { const t = total(); if (t) audio.currentTime = seek.value / 100 * t; });
+  }
+  row.querySelectorAll('.poll-opt').forEach(el => el.addEventListener('click', () => {
+    const key = el.dataset.opt, already = Boolean(msg.poll.options[key]?.votes?.[deviceId]), up = {};
+    Object.keys(msg.poll.options).forEach(k => { up[`${chatPath}/${msg.id}/poll/options/${k}/votes/${deviceId}`] = null; });
+    if (!already) up[`${chatPath}/${msg.id}/poll/options/${key}/votes/${deviceId}`] = username || 'Guest';
+    update(ref(db), up);
+  }));
+  row.querySelectorAll('.react-chip').forEach(c => c.addEventListener('click', () => toggleReaction(msg.id, c.dataset.em)));
+}
+
+// ---- chat loader (world chat or a private DM path) ----
+let unsubs = [], initialLoadDone = false;
+function openChat(path) {
+  unsubs.forEach(u => { try { u(); } catch {} }); unsubs = [];
+  chatPath = path; msgStore.clear(); messagesContainer.innerHTML = '';
+  lastDateLabel = ''; altCounter = 0; unreadCount = 0; initialLoadDone = false;
+  $('unreadBadge').classList.add('hidden'); cancelReplyOrEdit();
+  setTimeout(() => { initialLoadDone = true; }, 1500);
+  const q = query(ref(db, path), limitToLast(250));
+  unsubs.push(onChildAdded(q, (snap) => {
+    const data = snap.val(); if (!data) return;
+    if (!activeDm && data.timestamp && data.timestamp < userJoinedAt) return;
+    const msg = { id: snap.key, ...data }; msgStore.set(msg.id, msg);
+    if (hiddenForMeIds.has(msg.id)) return;
+    renderBubble(msg);
+    const near = window.innerHeight + window.scrollY >= document.body.offsetHeight - 200;
+    if (near || msg.deviceId === deviceId) toBottom(initialLoadDone);
+    else { unreadCount++; const b = $('unreadBadge'); b.textContent = unreadCount; b.classList.remove('hidden'); }
+    if (initialLoadDone && msg.deviceId !== deviceId) playPing();
+  }), onChildChanged(q, (snap) => {
+    const msg = { id: snap.key, ...snap.val() }; msgStore.set(msg.id, msg);
+    if (!hiddenForMeIds.has(msg.id)) renderBubble(msg);
+  }), onChildRemoved(q, (snap) => {
+    msgStore.delete(snap.key);
+    document.querySelector(`.message-row[data-id="${CSS.escape(snap.key)}"]`)?.remove();
+  }));
+}
+openChat('messages');
+
+const scrollFab = $('scrollFab');
+window.addEventListener('scroll', () => {
+  const far = window.innerHeight + window.scrollY < document.body.offsetHeight - 240;
+  scrollFab.classList.toggle('visible', far);
+  if (!far) { unreadCount = 0; $('unreadBadge').classList.add('hidden'); }
+});
+scrollFab.addEventListener('click', () => toBottom());
+
+// =========================================
+// 13. SITE CUSTOMIZATION (admin) — shared via Firebase
+// =========================================
+const FONTS = [['Inter (default)', ''], ['Cinzel (elegant serif)', "'Cinzel',serif"], ['Georgia (classic)', 'Georgia,serif'], ['Courier (typewriter)', "'Courier New',monospace"], ['System UI', 'system-ui,sans-serif']];
+const TFONTS = [['Cinzel (default)', ''], ['Inter', "'Inter',sans-serif"], ['Georgia', 'Georgia,serif'], ['Courier', "'Courier New',monospace"]];
+const FIELDS = [
+  { g: 'Branding' },
+  { k: 'title', l: 'App title', t: 'text', d: 'DORE ME$$ENGER' },
+  { k: 'introText', l: 'Intro screen text', t: 'text', d: 'Imon International' },
+  { k: 'placeholder', l: 'Message box placeholder', t: 'text', d: 'Type a message...' },
+  { k: 'statusText', l: 'Status line text (after the online count)', t: 'text', d: 'Encrypted Sync' },
+  { k: 'announcement', l: 'Announcement banner (empty = hidden)', t: 'text', d: '' },
+  { g: 'Colours' },
+  { k: 'accent', l: 'Accent colour', t: 'color', d: '#00f0ff' },
+  { k: 'textColor', l: 'Message text colour', t: 'color', d: '#ececec' },
+  { k: 'bubbleColor', l: 'Message bubble colour', t: 'color', d: '#16181c' },
+  { k: 'myBubbleColor', l: 'Your own bubble colour', t: 'color', d: '#0a262c' },
+  { k: 'bubbleOpacity', l: 'Bubble opacity', t: 'range', min: .4, max: 1, step: .02, d: .92 },
+  { k: 'headerColor', l: 'Header & composer colour', t: 'color', d: '#0a0a0c' },
+  { k: 'headerOpacity', l: 'Header & composer opacity', t: 'range', min: .4, max: 1, step: .02, d: .9 },
+  { g: 'Typography' },
+  { k: 'font', l: 'Chat font', t: 'select', o: FONTS, d: '' },
+  { k: 'fontSize', l: 'Message font size (px)', t: 'range', min: 12, max: 20, step: 1, d: 15 },
+  { k: 'titleFont', l: 'Title font', t: 'select', o: TFONTS, d: '' },
+  { k: 'titleSpacing', l: 'Title letter spacing (em)', t: 'range', min: 0, max: .4, step: .02, d: .14 },
+  { g: 'Layout & shape' },
+  { k: 'chatWidth', l: 'Chat width (px)', t: 'range', min: 480, max: 1200, step: 20, d: 880 },
+  { k: 'bubbleRadius', l: 'Bubble roundness (px)', t: 'range', min: 2, max: 28, step: 1, d: 14 },
+  { k: 'bubbleBlur', l: 'Bubble glass blur (px)', t: 'range', min: 0, max: 24, step: 1, d: 10 },
+  { k: 'msgGap', l: 'Space between messages (px)', t: 'range', min: 2, max: 28, step: 1, d: 10 },
+  { k: 'avatarSize', l: 'Avatar size (px)', t: 'range', min: 22, max: 52, step: 1, d: 32 },
+  { k: 'showAvatars', l: 'Show avatars in chat', t: 'check', d: true },
+  { g: 'Background' },
+  { k: 'bgUrl', l: 'Background image / GIF URL (empty = original)', t: 'text', d: '' },
+  { k: 'bgFit', l: 'Background fit', t: 'select', o: [['Cover (default)', ''], ['Contain', 'contain'], ['Stretch', '100% 100%']], d: '' },
+  { k: 'overlay', l: 'Dark overlay strength', t: 'range', min: .3, max: .95, step: .01, d: .82 },
+  { g: 'Features' },
+  { k: 'allowMedia', l: 'Allow photos & videos', t: 'check', d: true },
+  { k: 'allowVoice', l: 'Allow voice notes', t: 'check', d: true },
+  { k: 'allowPolls', l: 'Allow polls', t: 'check', d: true },
+  { k: 'allowDMs', l: 'Allow direct messages', t: 'check', d: true },
+  { k: 'quickMsgs', l: 'Quick messages (one per line)', t: 'area', d: DEFAULT_QUICK.join('\n') }
+];
+const hexRgb = (h) => { const n = parseInt(String(h).replace('#', ''), 16) || 0; return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
+const rgbaOf = (h, f, a) => { const [r, g, b] = hexRgb(h); return `rgba(${Math.round(r * f)},${Math.round(g * f)},${Math.round(b * f)},${a})`; };
+let savedCfg = {};
+
+function applySettings(s) {
+  s = s || {}; cfg = s;
+  const root = document.documentElement.style, has = (k) => s[k] !== undefined && s[k] !== null && s[k] !== '';
+  const V = (n, v) => (v === null ? root.removeProperty(n) : root.setProperty(n, v));
+  V('--cyan', has('accent') ? s.accent : null);
+  V('--cyan-dim', has('accent') ? rgbaOf(s.accent, 1, .14) : null);
+  V('--cyan-border', has('accent') ? rgbaOf(s.accent, 1, .35) : null);
+  V('--text-color', has('textColor') ? s.textColor : null);
+  const bo = has('bubbleOpacity') ? +s.bubbleOpacity : .92;
+  V('--bubble-bg', (has('bubbleColor') || has('bubbleOpacity')) ? `linear-gradient(155deg,${rgbaOf(s.bubbleColor || '#16181c', 1, bo)},${rgbaOf(s.bubbleColor || '#16181c', .55, Math.min(1, bo + .02))})` : null);
+  V('--my-bubble-bg', (has('myBubbleColor') || has('bubbleOpacity')) ? `linear-gradient(155deg,${rgbaOf(s.myBubbleColor || '#0a262c', 1, bo)},${rgbaOf(s.myBubbleColor || '#0a262c', .6, Math.min(1, bo + .02))})` : null);
+  const ho = has('headerOpacity') ? +s.headerOpacity : .9;
+  V('--hdr-bg', (has('headerColor') || has('headerOpacity')) ? rgbaOf(s.headerColor || '#0a0a0c', 1, ho) : null);
+  V('--cmp-bg', (has('headerColor') || has('headerOpacity')) ? rgbaOf(s.headerColor || '#0a0a0c', 1, Math.min(1, ho + .03)) : null);
+  V('--font', has('font') ? s.font : null);
+  V('--fs', has('fontSize') ? s.fontSize + 'px' : null);
+  V('--title-font', has('titleFont') ? s.titleFont : null);
+  V('--title-ls', has('titleSpacing') ? s.titleSpacing + 'em' : null);
+  V('--chat-w', has('chatWidth') ? s.chatWidth + 'px' : null);
+  V('--bubble-radius', has('bubbleRadius') ? s.bubbleRadius + 'px' : null);
+  V('--bubble-blur', has('bubbleBlur') ? s.bubbleBlur + 'px' : null);
+  V('--msg-gap', has('msgGap') ? s.msgGap + 'px' : null);
+  V('--avatar-size', has('avatarSize') ? s.avatarSize + 'px' : null);
+  V('--bg-image', has('bgUrl') ? `url("${String(s.bgUrl).replace(/["\\\n\r]/g, '')}")` : null);
+  V('--bg-size', has('bgFit') ? s.bgFit : null);
+  V('--bg-overlay', has('overlay') ? `rgba(5,5,5,${s.overlay})` : null);
+  const b = document.body.classList;
+  b.toggle('no-media', s.allowMedia === false); b.toggle('no-voice', s.allowVoice === false);
+  b.toggle('no-polls', s.allowPolls === false); b.toggle('no-dms', s.allowDMs === false); b.toggle('no-avatars', s.showAvatars === false);
+  $('appHeaderTitle').textContent = has('title') ? s.title : 'DORE ME$$ENGER';
+  document.title = 'Imon International — ' + $('appHeaderTitle').textContent;
+  const it = $('introText'); if (it) it.textContent = has('introText') ? s.introText : 'Imon International';
+  messageInput.placeholder = has('placeholder') ? s.placeholder : 'Type a message...';
+  statusSuffix = has('statusText') ? s.statusText : 'Encrypted Sync'; renderStatus();
+  const ab = $('announceBar'); ab.textContent = has('announcement') ? '📢 ' + s.announcement : ''; ab.classList.toggle('visible', has('announcement'));
+  renderQuick(has('quickMsgs') ? String(s.quickMsgs).split('\n').map(x => x.trim()).filter(Boolean).slice(0, 40) : DEFAULT_QUICK);
+}
+onValue(settingsRef, (snap) => { savedCfg = snap.val() || {}; applySettings(savedCfg); });
+
+function buildAdminForm() {
+  const box = $('adminFields'); box.innerHTML = '';
+  FIELDS.forEach(f => {
+    if (f.g) { box.insertAdjacentHTML('beforeend', `<div class="adm-group">${f.g}</div>`); return; }
+    const cur = savedCfg[f.k] !== undefined ? savedCfg[f.k] : f.d, w = document.createElement('div'); w.className = 'modal-field';
+    let h = '';
+    if (f.t === 'text') h = `<label>${f.l}</label><input class="modal-input" data-k="${f.k}" type="text" value="${escapeHtml(cur)}">`;
+    else if (f.t === 'area') h = `<label>${f.l}</label><textarea class="modal-input" data-k="${f.k}">${escapeHtml(cur)}</textarea>`;
+    else if (f.t === 'color') h = `<label>${f.l}</label><input class="modal-input" data-k="${f.k}" type="color" value="${cur}">`;
+    else if (f.t === 'range') h = `<label>${f.l}</label><div class="adm-row"><input data-k="${f.k}" type="range" min="${f.min}" max="${f.max}" step="${f.step}" value="${cur}"><output>${cur}</output></div>`;
+    else if (f.t === 'select') h = `<label>${f.l}</label><select class="modal-input" data-k="${f.k}">${f.o.map(([n, v]) => `<option value="${escapeHtml(v)}" ${v === cur ? 'selected' : ''}>${n}</option>`).join('')}</select>`;
+    else if (f.t === 'check') h = `<label class="adm-check"><input data-k="${f.k}" type="checkbox" ${cur !== false ? 'checked' : ''}> ${f.l}</label>`;
+    w.innerHTML = h; box.appendChild(w);
+  });
+}
+function readAdminForm() {
+  const out = {};
+  FIELDS.forEach(f => {
+    if (!f.k) return; const el = document.querySelector(`#adminFields [data-k="${f.k}"]`); if (!el) return;
+    let v = f.t === 'check' ? el.checked : (f.t === 'range' ? +el.value : el.value);
+    if (f.t === 'range') el.parentElement.querySelector('output').textContent = v;
+    if (String(v) !== String(f.d)) out[f.k] = v;
+  });
+  return out;
+}
+$('adminFields').addEventListener('input', () => applySettings(readAdminForm()));
+$('adminFields').addEventListener('change', () => applySettings(readAdminForm()));
+
+let requests = {}, watchingReq = false;
+function watchRequests() {
+  if (watchingReq || !isAdmin) return; watchingReq = true;
+  onValue(ref(db, 'adminRequests'), (s) => { requests = s.val() || {}; renderInbox(); });
+}
+function renderInbox() {
+  const box = $('adminInbox'), items = Object.entries(requests).sort((a, b) => (b[1].ts || 0) - (a[1].ts || 0));
+  if (!items.length) { box.innerHTML = '<div style="font-size:.8rem;color:#888;">No letters yet.</div>'; return; }
+  box.innerHTML = '';
+  items.forEach(([id, r]) => {
+    const d = document.createElement('div'); d.className = 'letter-card';
+    d.innerHTML = `<div class="lc-head"><span>From ${escapeHtml(r.username)} • ${new Date(r.ts).toLocaleString()}</span><button type="button">Delete</button></div>${escapeHtml(r.letter || r.body)}`;
+    d.querySelector('button').addEventListener('click', () => remove(ref(db, `adminRequests/${id}`)));
+    box.appendChild(d);
+  });
+}
+const adminModal = $('adminModal');
+function closeAdmin() { adminModal.classList.remove('open'); applySettings(savedCfg); }
+adminCustomBtn.addEventListener('click', () => { if (!isAdmin) return; buildAdminForm(); watchRequests(); renderInbox(); adminModal.classList.add('open'); });
+$('closeAdminModal').addEventListener('click', closeAdmin);
+$('saveCustomSettingsBtn').addEventListener('click', () => {
+  const data = readAdminForm();
+  const p = Object.keys(data).length ? set(settingsRef, data) : remove(settingsRef);
+  p.then(() => { adminModal.classList.remove('open'); showToast('Customization applied for everyone ✓'); }).catch(() => showToast('⚠️ Could not save. Check your database rules.'));
+});
+$('resetSettingsBtn').addEventListener('click', () => {
+  if (!confirm('Reset the whole site to its original look for everyone?')) return;
+  remove(settingsRef).then(() => { buildAdminForm(); showToast('Site reset to default'); });
+});
+$('resignAdminBtn').addEventListener('click', () => {
+  isAdmin = false; localStorage.removeItem('dore_is_admin');
+  adminCustomBtn.style.display = 'none';
+  adminCustomBtn.classList.remove('creator-mode');
+  remove(ref(db, `admins/${deviceId}`)).catch(() => {}); closeAdmin(); showToast('You are no longer an admin');
+});
+if (isAdmin) watchRequests();
+
+window.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  closeDrawers(); if (username) profileModal.classList.remove('open');
+  pollModal.classList.remove('open'); mediaModal.classList.remove('open'); $('helpModal').classList.remove('open'); lightbox.click();
+  if (adminModal.classList.contains('open')) closeAdmin();
+  closeActiveSidebar(); closeContextMenu();
+});
+syncComposerButtons();
+</script>
+</body>
+</html>
